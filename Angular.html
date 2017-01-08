@@ -1,0 +1,589 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>Angular</section>
+				<section>
+					<h2>Ambitions</h2>
+					<ul>
+						<li>Très rapide</li>
+						<li>Moins compliqué</li>
+						<li>Plus complet</li>
+						<li>Modulaire : ES6 & TypeScript</li>
+						<li>
+							Webcomponent
+							<ul>
+								<li>custom element</li>
+								<li>import</li>
+								<li>shadow DOM</li>
+							</ul>
+						</li>
+						<li>
+							Multi-plateformes (AngularJS étant principalement Desktop)
+							<ul>
+								<li>Web</li>
+								<li>Mobile web : Ionic 2</li>
+								<li>Mobile natif : NativeScript</li>
+								<li>Desktop : Electron</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Performances</h2>
+					<ul>
+						<li>Render : 2,5 fois plus rapide au démarrage</li>
+						<li>Rerender : 4,2 fois plus rapide lors de l’utilisation</li>
+						<li>Permanent : 5 fois plus rapide tout le temps</li>
+						<li>Web workers (tâches de fond) : 2 fois plus rapides</li>
+					</ul>
+				</section>
+				<section>
+					<section>
+						<h2>TypeScript</h2>
+					</section>
+					<section>
+						<h2>Qu’est-ce que TypeScript ?</h2>
+						<ul>
+							<li>Transcompilation</li>
+							<li>
+								Avantages :
+								<ul>
+									<li>Typage : faible mais statique (compilation)</li>
+									<li>Annotations</li>
+								</ul>
+							</li>
+							<li>Date de première version : 9 février 2012</li>
+							<li>Influencé par : JavaScript, C#, Java</li>
+							<li>Développeur : Microsoft</li>
+							<li>Licence : libre et open-source</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Pourquoi il faut choisir TypeScript</h2>
+						<pre><code class="typescript">class Polygone {
+	hauteur: number;
+	largeur: number;
+	
+	constructor(hauteur: number, largeur: number) {
+		this.hauteur = hauteur;
+		this.largeur = largeur;
+	}
+	
+	calcArea(): number {
+		return this.hauteur * this.largeur;
+	}
+}
+
+let carre: Polygone = new Polygone(4, 4);
+let area: number = carre.calcArea();</code></pre>
+						<p>Encore un nouveau langage à apprendre ?</p>
+					</section>
+					<section>
+						<h3>TypeScript = ES6 + Typage + annotation</h3>
+						<pre><code class="typescript">class Polygone {
+	constructor(hauteur, largeur) {
+		this.hauteur = hauteur;
+		this.largeur = largeur;
+	}
+	
+	calcArea() {
+		return this.hauteur * this.largeur;
+	}
+}
+let carre = new Polygone(4, 4);
+let area = carre.calcArea();</code></pre>
+					</section>
+					<section>
+						<h3>Essayons ES5...</h3>
+						<pre><code class="typescript">var Polygone = (function () {
+	function Polygone(hauteur, largeur) {
+		this.hauteur = hauteur;
+		this.largeur = largeur;
+	}
+	Polygone.prototype.calcArea = function () {
+		return this.hauteur * this.largeur;
+	};
+	return Polygone;
+}());
+var carre = new Polygone(4, 4);
+var area = carre.calcArea();</code></pre>
+					</section>
+					<section>
+						<h3>Le typage</h3>
+						<ul>
+							<li>Contrainte ?</li>
+							<li><i>Type</i> <code>any</code></li>
+						</ul>
+						<pre><code class="typescript">class Polygone {
+	hauteur;
+	largeur;
+	
+	constructor(hauteur, largeur) {
+		this.hauteur = hauteur;
+		this.largeur = largeur;
+	}
+	
+	calcArea() {
+		return this.hauteur * this.largeur;
+	}
+}
+let carre = new Polygone(4, 4);
+let area = carre.calcArea();</code></pre>
+					</section>
+				</section>
+				<section>
+					<h2>Communauté</h2>
+					<div>
+						<div>
+							<div style="float:left; width:25%"><img data-src="img/TypeScript.png" height="150"></div>
+							<div style="float:left; width:25%"><img data-src="img/Ionic 2.png" height="150"></div>
+							<div style="float:left; width:25%"><img data-src="img/NativeScript.png" height="150"></div>
+							<div style="float:left; width:25%"><img data-src="img/React.png" height="150"></div>
+						</div>
+						<div>
+							<div style="float:left; width:25%"><img data-src="img/Ember.png" height="75"></div>
+							<div style="float:left; width:25%"><img data-src="img/Meteor.png" height="50"></div>
+							<div style="float:left; width:25%"><img data-src="img/Telerik.png" height="50"></div>
+							<div style="float:left; width:25%"><img data-src="img/Rangle.io.png" height="50"></div>
+						</div>
+					</div>
+				</section>
+				<section>
+					<h2>Angular</h2>
+					<h3>En bref</h3>
+					<ul>
+						<li>Complie</li>
+						<li>Change : détection côté DOM ou contrôleur (DataBinding)</li>
+						<li>Render</li>
+						<li>Dependency Injection</li>
+						<li>Zones : bibiothèque séparée, développée par Angular, utilisée pour les opérations asynchrones</li>
+						<li>Rerender : génération de vue côté serveur</li>
+						<li>Mobile : tactile, bibliothèques intégrées</li>
+						<li>Component : bibliothèques (Material 2)</li>
+						<li>Debug : notamment grâce à Zone</li>
+						<li>CLI : développement rapide :</li>
+						<li>Intellisense : Sublime, WebStorm, Visual Studio Code</li>
+						<li>I18n</li>
+						<li>Animate</li>
+						<li>Router</li>
+						<li>ngUpgrade / ngForgrade</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Types de "modules"</h2>
+					<ul>
+						<li>Service = simple classe avec fonctionnalités</li>
+						<li>Directives (repris d’AngularJS) = modification du DOM</li>
+						<li>Component = directive + template</li>
+						<li>Pipe (repris d’AngularJS sous le nom de Filter) = transformateur de données</li>
+					</ul>
+				</section>
+				<section>
+					<section>
+						<h2>Les services</h2>
+						<ul>
+							<li>Fonctionnalités</li>
+							<li>Code métier</li>
+							<li>Appel de webservice</li>
+						</ul>
+					</section>
+					<section>
+						<h2>AngularJS...</h2>
+						<ul>
+							<li>Service : propriétés = fonctions</li>
+							<li>Factory : retourner un objet où les propriétés sont des fonctions</li>
+							<li>Provider : propriété $get de type fonction retournant l’objet</li>
+						</ul>
+						<pre><code class="typescript">angular
+	.module('foo')
+	.service('myService', ['otherService', function(otherService) {
+		this.doSomething = function (arg) {
+			// ...
+		}
+	}]);
+
+angular
+	.module('foo')
+	.factory('myService', ['otherService', function(otherService) {
+		return {
+			doSomething: function (arg) {
+				// ...
+			}
+		};
+	}]);
+
+angular
+	.module('foo')
+	.provider('myService', ['otherService', function(otherService) {
+		this.$get = function () {
+			return ...
+		}
+	}]);</code></pre>
+					</section>
+					<section>
+						<h2>Angular !</h2>
+						<p>POO = classe + méthodes (+ attributs)</p>
+						<pre><code class="typescript">import { Injectable } from '@angular/core';
+import { OtherService } from '...';
+
+@Injectable()
+class MyService {
+	constructor(otherService: OtherService) {
+		// configuration
+	}
+
+	doSomething(arg) {
+		// ...
+	}
+}</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Les pipes</h2>
+						<p>Transformation de données</p>
+						<pre><code class="html">&lt;span&gt;{{'toto' | upper}}&lt;/span&gt;</code></pre>
+					</section>
+					<section>
+						<h2>Les pipes</h2>
+						<h3>AngularJS...</h3>
+						<p>"filter"</p>
+						<pre><code class="typescript">angular
+	.module('foo', [])
+	.filter('upper', function() {
+		return function(value, arg1, arg2) {
+			return value.toUpperCase();
+		};
+	});</code></pre>
+					</section>
+					<section>
+						<h2>Les pipes</h2>
+						<h3>Angular !</h3>
+						<p>Interface</p>
+						<pre><code class="typescript">interface PipeTransform {
+	transform(value: any, ...args: any[]): any;
+}</code></pre>
+						<p>Implémentation</p>
+						<pre><code class="typescript">import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({ name: 'upper' })
+class UpperPipe implements PipeTransform {
+	transform(value: string): string {
+		return value.toUpperCase();
+	}
+}</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Les composants</h2>
+					</section>
+					<section>
+						<h3>En bref</h3>
+						<pre><code class="typescript">import { Component } from '@angular/core';
+
+@Component({
+	selector: 'say-hello',
+	template: 'Hello world!'
+})
+class HelloComponent {
+	// properties &amp; methods
+}</code></pre>
+						<ul>
+							<li><code>class</code> : contrôleur</li>
+							<li><code>template</code> : vue</li>
+						</ul>
+						<pre><code class="html">&lt;say-hello&gt;&lt;/say-hello&gt;</code></pre>
+					</section>
+					<section>
+						<h3>Et en JavaScript ?</h3>
+						<pre><code class="typescript">(function(app) {
+	app.AppComponent = ng.core
+		.Component({
+			selector: 'say-hello',
+			template: 'Hello world!'
+		})
+		.Class({
+			constructor: function() {}
+		});
+})(window.app || (window.app = {}));</code></pre>
+					</section>
+					<section>
+						<h3>Databinding</h3>
+						<ul>
+							<li>Lien vue-contrôleur</li>
+							<li>AngularJS : n'est plus automatiquement bi-directionnel</li>
+						</ul>
+						<pre><code class="typescript">@Component({
+	selector: 'sample-binding',
+	template: `
+		&lt;input [value]=&quot;name&quot;&gt;
+		&lt;span&gt;{{count}}&lt;/span&gt;
+		&lt;button (click)=&quot;handler()&quot;&gt;+&lt;/button&gt;
+		&lt;input type=&quot;number&quot; [(ngModel)]=&quot;count&quot;&gt;`
+})
+export class TemplateComponent {
+	name: string = 'Julien';
+	count: number = 42;
+	handler(): void {
+		this.count ++;
+	}
+}</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Penser "réutilisable"</h2>
+					</section>
+					<section>
+						<h3>Hiérarchie du DOM</h3>
+						<p>Pattern composite</p>
+						<img data-src="img/DOM-hierarchy.png">
+					</section>
+					<section>
+						<h3>Exemple de la racine de l'application</h3>
+						<pre><code class="typescript">@Component({
+	selector: 'my-app',
+	template: `
+		&lt;my-menu&gt;&lt;/my-menu&gt;
+		&lt;my-content&gt;&lt;/my-content&gt;`
+})
+class AppComponent {}
+
+@Component({
+	selector: 'my-content',
+	template: `
+		&lt;my-header&gt;&lt;/my-header&gt;
+		&lt;my-details&gt;&lt;/my-details&gt;
+		&lt;my-footer&gt;&lt;/my-footer&gt;`
+})
+class ContentComponent {}</code></pre>
+						<pre><code class="html">&lt;my-app&gt;
+	&lt;my-menu&gt;&lt;/my-menu&gt;
+	&lt;my-content&gt;
+		&lt;my-header&gt;&lt;/my-header&gt;
+		&lt;my-details&gt;&lt;/my-details&gt;
+		&lt;my-footer&gt;&lt;/my-footer&gt;
+	&lt;/my-content&gt;
+&lt;/my-app&gt;</code></pre>
+					</section>
+					<section>
+						<h3>Orienté composant</h3>
+						<img data-src="img/component.png">
+						<ul>
+							<li>
+								100% indépendant
+								<ul>
+									<li>Style</li>
+									<li>Contrôleur : modèle &amp; methods</li>
+								</ul>
+							</li>
+							<li>
+								Entrée
+								<ul>
+									<li>Valeur</li>
+									<li>Composants fils</li>
+								</ul>
+							</li>
+							<li>Sortie : événement</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Les paramètres</h2>
+					</section>
+					<section>
+						<h3>La communiation</h3>
+						<img data-src="img/component-communication.png">
+						<ul>
+							<li>
+								2 sens :
+								<ul>
+									<li>Sous-composants : valeur</li>
+									<li>Composant parent : événement</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>L'implémentation</h3>
+						<p>TypeScript : annotations</p>
+						<ul>
+							<li>
+								Entrée :
+								<ul>
+									<li>Attribut : <code>@Input()</code></li>
+									<li>Composants fils : <code>@ContentChild()</code></li>
+								</ul>
+							<li>Sortie : <code>@Output()</code></li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Exemple: le tableau <code>&lt;table&gt;</code></h2>
+					</section>
+					<section>
+						<p>Les valeurs à afficher</p>
+						<pre><code class="typescript">interface Car {
+	id: number;
+	name: string;
+	brand: string;
+}
+
+let cars: Car[] = [
+	{ id: 1, name: 'Golf GTI', brand: 'Volkswagen' },
+	{ id: 2, name: 'D&eacute;capotable rouge', brand: 'BMW' },
+	{ id: 3, name: 'Matiz', brand: 'Chevrolet' }
+]</code></pre>
+					</section>
+					<section>
+						<p>Le besoin</p>
+						<pre><code class="html">&lt;p62-table [values]=&quot;cars&quot; (selected)=&quot;onRowSelected($event)&quot;&gt;
+	&lt;p62-column title=&quot;Code&quot; field=&quot;id&quot;&gt;&lt;/p62-column&gt;
+	&lt;p62-column title=&quot;Designation&quot; field=&quot;name&quot;&gt;&lt;/p62-column&gt;
+	&lt;p62-column title=&quot;Brand&quot; field=&quot;brand&quot;&gt;&lt;/p62-column&gt;
+&lt;/p62-table&gt;</code></pre>
+						<pre><code class="typescript">@Component({
+	selector: 'p62-table-sample',
+	template: `...`
+})
+export class SampleTableComponent {
+	cars: Car[];
+
+	onRowSelected(value: Car): void {
+		alert(JSON.stringify(value));
+	}
+}</code></pre>
+					</section>
+					<section>
+						<p>L'implémentation</p>
+						<pre><code class="html">import { Component, Input, Output, EventEmitter, ContentChildren, QueryList } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+	selector: 'p62-column',
+	template: ``
+})
+export class ColumnComponent {
+	@Input() title: string;
+	@Input() field: string;
+}
+
+@Component({
+	selector: 'p62-table',
+	template: `
+		&lt;table&gt;
+			&lt;thead&gt;
+				&lt;tr&gt;
+					&lt;th *ngFor=&quot;let column of columns&quot;&gt;{{column.title}}&lt;/th&gt;
+				&lt;/tr&gt;
+			&lt;/thead&gt;
+			&lt;tbody&gt;
+				&lt;tr *ngFor=&quot;let value of values&quot;&gt;
+					&lt;td *ngFor=&quot;let column of columns&quot; (click)=&quot;emitSelection(value)&quot;&gt;{{value[column.field]}}&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;`,
+	styles: [ `
+		table, th, td { border: 1px solid black; }
+		thead { font-weight: bold; }`
+	]
+})
+export class TableComponent {
+	@Input() values: any[];
+	@ContentChildren(ColumnComponent) columns: QueryList&lt;ColumnComponent&gt;;
+	@Output() selected: EventEmitter&lt;any&gt; = new EventEmitter&lt;any&gt;();
+
+	emitSelection(value: any): void {
+		this.selected.emit(value);
+	}
+}</code></pre>
+					</section>
+				</section>
+				<section>
+					<h2>Les directive</h2>
+					<ul>
+						<li>Manipulation de DOM</li>
+						<li>
+							2 types
+							<ul>
+								<li>Structurelle : <code>&lt;template&gt;</code></li>
+								<li>Attribut : <code>&lt;foo myDir /&gt;</code></li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Programmation réactive</h2>
+					<ul>
+						<li>Pattern observateur</li>
+						<li>Promise : natif JavaScript & ECMAScript</li>
+						<li>ReactiveX : RxJS</li>
+						<li>
+							Objet <code>Observable&lt;&gt;</code>
+							<ul>
+								<li>Multi-event</li>
+								<li>Stream : <i>map</i>/<i>filter</i>/<i>reduce</i></li>
+							</ul>
+						</li>
+						<li>
+							Exemples :
+							<ul>
+								<li><code>@Output()</code>: <code>EventEmitter&lt;&gt; extends Observable&lt;&gt;</code></li>
+								<li>Webservices</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Inconvénients</h2>
+					<ul>
+						<li>
+							Setup du projet
+							<ul>
+								<li>QuickStart</li>
+								<li>CLI</li>
+							</ul>
+						</li>
+						<li>Coupure avec AngularJS</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Migration de AngularJS</h2>
+					<ul>
+						<li>Possible</li>
+						<li>Module <code>@angular/upgrade</code></li>
+						<li>Propre ? Facile ?</li>
+						<li>
+							Facilitations :
+							<ul>
+								<li>Approche composant</li>
+								<li>TypeScript</li>
+								<li>Module loader (SystemJS, Webpack)</li>
+								<li>
+									Adapteurs :
+									<ul>
+										<li><code>ngForward</code> : exécuter du code Angular dans une application AngularJS (communautaire)
+										<li><code>ngUpgrade</code> : coexister les 2 frameworks (Google)</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>Coupure avec AngularJS</li>
+					</ul>
+				</section>
+			</div>
+		</div>
+		<script src="js/reveal.js"></script>
+		<script>
+			Reveal.initialize();
+		</script>
+	</body>
+</html>
