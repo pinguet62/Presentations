@@ -1,70 +1,110 @@
 <html>
 	<head>
+		<title>Angular</title>
+		<link rel="icon" type="image/svg+xml" href="img/Angular.svg" />
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/black.css">
+		<link rel="stylesheet" href="lib/css/zenburn.css">
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Angular</section>
 				<section>
-					<h2>Ambitions</h2>
-					<ul>
-						<li>TrËs rapide</li>
-						<li>Moins compliquÈ</li>
-						<li>Plus complet</li>
-						<li>Modulaire : ES6 & TypeScript</li>
+					<h1>Angular<h1>
+					<img data-src="img/Angular.svg" height="50%">
+				</section>
+				<section>
+					<h2>Pr√©sentation (tr√®s) rapide</h2>
+					<ul style="width:100%">
+						<li>Philosophie d'AngularJS conserv√©e</li>
+						<li>Framework MVC</li>
 						<li>
-							Webcomponent
-							<ul>
-								<li>custom element</li>
-								<li>import</li>
-								<li>shadow DOM</li>
-							</ul>
-						</li>
-						<li>
-							Multi-plateformes (AngularJS Ètant principalement Desktop)
-							<ul>
-								<li>Web</li>
-								<li>Mobile web : Ionic 2</li>
-								<li>Mobile natif : NativeScript</li>
-								<li>Desktop : Electron</li>
-							</ul>
+							Enrichissement du DOM
+							<pre><code class="html"><input superman [(ngModel)]="attr">
+<custom-tag></custom-tag>
+<ul><li *ngFor="let it of list">{{it}}</li></ul></code></pre>
 						</li>
 					</ul>
 				</section>
 				<section>
-					<h2>Performances</h2>
-					<ul>
-						<li>Render : 2,5 fois plus rapide au dÈmarrage</li>
-						<li>Rerender : 4,2 fois plus rapide lors de líutilisation</li>
-						<li>Permanent : 5 fois plus rapide tout le temps</li>
-						<li>Web workers (t‚ches de fond) : 2 fois plus rapides</li>
-					</ul>
+					<section>
+						<h2>Ambitions</h2>
+					</section>
+					<section>
+						<h3>Performance</h3>
+						<ul>
+							<li><i>Render</i> : 2,5 fois plus rapide au d√©marrage</li>
+							<li><i>Rerender</i> : 4,2 fois plus rapide lors de l'utilisation</li>
+							<li><i>Permanent</i> : 5 fois plus rapide tout le temps</li>
+							<li><i>Web workers</i> : 2 fois plus rapides</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Futur du web</h3>
+						<ul>
+							<li><i>Modulaire</i> : ES6 & TypeScript</li>
+							<li>
+								<i>Webcomponent</i>
+								<ul>
+									<li>custom element</li>
+									<li>import</li>
+									<li>shadow DOM</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Multi-plateformes</h3>
+						<ul>
+							<li>AngularJS √©tant principalement Desktop</li>
+							<li>
+								<ul>
+									<li>Web</li>
+									<li>Desktop : <a href="http://electron.atom.io">Electron</a></li>
+									<li>
+										Mobile
+										<ul>
+											<li>Mobile web : <a href="http://ionic.io/2">Ionic 2</a></li>
+											<li>Mobile natif : <a href="https://www.nativescript.org">NativeScript</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Mais encore ?</h3>
+						<ul>
+							<li>Moins compliqu√©</li>
+							<li>Plus complet</li>
+						</ul>
+					</section>
 				</section>
 				<section>
 					<section>
 						<h2>TypeScript</h2>
+						<img data-src="img/TypeScript.png" height="30%">
 					</section>
 					<section>
-						<h2>Quíest-ce que TypeScript ?</h2>
+						<h3>Qu'est-ce que TypeScript ?</h3>
 						<ul>
-							<li>Transcompilation</li>
+							<li>Transpilation</li>
+							<li>Date de premi√®re version : 9 f√©vrier 2012</li>
+							<li>Influenc√© par : JavaScript, C#, Java</li>
+							<li>D√©veloppeur : Microsoft</li>
+							<li>Licence : libre et open-source</li>
 							<li>
 								Avantages :
 								<ul>
-									<li>Typage : faible mais statique (compilation)</li>
-									<li>Annotations</li>
+									<li>Typage statique (compilateur)</li>
+									<li>Annotations (d√©corateur)</li>
 								</ul>
 							</li>
-							<li>Date de premiËre version : 9 fÈvrier 2012</li>
-							<li>InfluencÈ par : JavaScript, C#, Java</li>
-							<li>DÈveloppeur : Microsoft</li>
-							<li>Licence : libre et open-source</li>
 						</ul>
 					</section>
 					<section>
-						<h2>Pourquoi il faut choisir TypeScript</h2>
+						<h3>Pourquoi il faut choisir TypeScript</h3>
+						<q>Encore un nouveau langage √† apprendre ?</q>
 						<pre><code class="typescript">class Polygone {
 	hauteur: number;
 	largeur: number;
@@ -81,10 +121,9 @@
 
 let carre: Polygone = new Polygone(4, 4);
 let area: number = carre.calcArea();</code></pre>
-						<p>Encore un nouveau langage ‡ apprendre ?</p>
 					</section>
 					<section>
-						<h3>TypeScript = ES6 + Typage + annotation</h3>
+						<h3>Essayons <i>ECMAScript 6</i> !</h3>
 						<pre><code class="typescript">class Polygone {
 	constructor(hauteur, largeur) {
 		this.hauteur = hauteur;
@@ -97,9 +136,10 @@ let area: number = carre.calcArea();</code></pre>
 }
 let carre = new Polygone(4, 4);
 let area = carre.calcArea();</code></pre>
+						<q>Heu, c'est pareil non ?</q>
 					</section>
 					<section>
-						<h3>Essayons ES5...</h3>
+						<h3>Quant √† <i>ECMAScript 5</i>...</h3>
 						<pre><code class="typescript">var Polygone = (function () {
 	function Polygone(hauteur, largeur) {
 		this.hauteur = hauteur;
@@ -112,44 +152,53 @@ let area = carre.calcArea();</code></pre>
 }());
 var carre = new Polygone(4, 4);
 var area = carre.calcArea();</code></pre>
+						<q>Ok, TypeScript c'est cool !</q>
 					</section>
 					<section>
-						<h3>Le typage</h3>
-						<ul>
-							<li>Contrainte ?</li>
-							<li><i>Type</i> <code>any</code></li>
+						<h3>Les annotations</h3>
+						<pre class="fragment"><code class="typescript">@CanSpeak('Hello world!')
+class Beautifull {}</code></pre>
+						<pre class="fragment"><code class="typescript">function CanSpeak(message: string) {
+	return function(target: Function) {
+		target.prototype.speak = () => console.log(message);
+	}
+}</code></pre>
+						<pre class="fragment"><code class="typescript">let obj = new Beautifull();
+obj.speak(); // 'Hello world!'</code></pre>
+					</section>
+					<section>
+						<h3>Finalement, est-ce une contrainte ?</h3>
+						<ul style="width:100%">
+							<li class="fragment">
+								Annotations : fonction
+								<pre><code class="typescript">CanSpeak('Hello world!')(Beautifull);</code></pre>
+							</li>
+							<li class="fragment">
+								Typage : facultatif ou "type" <code>any</code>
+								<pre><code class="typescript">class Polygone {
+	constructor(hauteur, largeur: any) {
+		// ...
+	}
+	// ...
+}</code></pre>
+							</li>
 						</ul>
-						<pre><code class="typescript">class Polygone {
-	hauteur;
-	largeur;
-	
-	constructor(hauteur, largeur) {
-		this.hauteur = hauteur;
-		this.largeur = largeur;
-	}
-	
-	calcArea() {
-		return this.hauteur * this.largeur;
-	}
-}
-let carre = new Polygone(4, 4);
-let area = carre.calcArea();</code></pre>
 					</section>
 				</section>
 				<section>
-					<h2>CommunautÈ</h2>
+					<h2>Communaut√©</h2>
 					<div>
 						<div>
 							<div style="float:left; width:25%"><img data-src="img/TypeScript.png" height="150"></div>
 							<div style="float:left; width:25%"><img data-src="img/Ionic 2.png" height="150"></div>
 							<div style="float:left; width:25%"><img data-src="img/NativeScript.png" height="150"></div>
-							<div style="float:left; width:25%"><img data-src="img/React.png" height="150"></div>
+							<div style="float:left; width:25%"><img data-src="img/Electron.svg" height="150"></div>
 						</div>
 						<div>
-							<div style="float:left; width:25%"><img data-src="img/Ember.png" height="75"></div>
+							<div style="float:left; width:25%"><img data-src="img/React.png" height="100"></div>
 							<div style="float:left; width:25%"><img data-src="img/Meteor.png" height="50"></div>
-							<div style="float:left; width:25%"><img data-src="img/Telerik.png" height="50"></div>
 							<div style="float:left; width:25%"><img data-src="img/Rangle.io.png" height="50"></div>
+							<div style="float:left; width:25%"><img data-src="img/Ember.png" height="75"></div>
 						</div>
 					</div>
 				</section>
@@ -158,15 +207,15 @@ let area = carre.calcArea();</code></pre>
 					<h3>En bref</h3>
 					<ul>
 						<li>Complie</li>
-						<li>Change : dÈtection cÙtÈ DOM ou contrÙleur (DataBinding)</li>
+						<li>Change : d√©tection c√¥t√© DOM ou contr√¥leur (DataBinding)</li>
 						<li>Render</li>
 						<li>Dependency Injection</li>
-						<li>Zones : bibiothËque sÈparÈe, dÈveloppÈe par Angular, utilisÈe pour les opÈrations asynchrones</li>
-						<li>Rerender : gÈnÈration de vue cÙtÈ serveur</li>
-						<li>Mobile : tactile, bibliothËques intÈgrÈes</li>
-						<li>Component : bibliothËques (Material 2)</li>
-						<li>Debug : notamment gr‚ce ‡ Zone</li>
-						<li>CLI : dÈveloppement rapide :</li>
+						<li>Zones : bibioth√®que s√©par√©e, d√©velopp√©e par Angular, utilis√©e pour les op√©rations asynchrones</li>
+						<li>Rerender : g√©n√©ration de vue c√¥t√© serveur</li>
+						<li>Mobile : tactile, biblioth√®ques int√©gr√©es</li>
+						<li>Component : biblioth√®ques (Material 2)</li>
+						<li>Debug : notamment gr√¢ce √† Zone</li>
+						<li>CLI : d√©veloppement rapide :</li>
 						<li>Intellisense : Sublime, WebStorm, Visual Studio Code</li>
 						<li>I18n</li>
 						<li>Animate</li>
@@ -177,27 +226,27 @@ let area = carre.calcArea();</code></pre>
 				<section>
 					<h2>Types de "modules"</h2>
 					<ul>
-						<li>Service = simple classe avec fonctionnalitÈs</li>
-						<li>Directives (repris díAngularJS) = modification du DOM</li>
+						<li>Service = simple classe avec fonctionnalit√©s</li>
+						<li>Directives (repris d'AngularJS) = modification du DOM</li>
 						<li>Component = directive + template</li>
-						<li>Pipe (repris díAngularJS sous le nom de Filter) = transformateur de donnÈes</li>
+						<li>Pipe (repris d'AngularJS sous le nom de Filter) = transformateur de donn√©es</li>
 					</ul>
 				</section>
 				<section>
 					<section>
 						<h2>Les services</h2>
 						<ul>
-							<li>FonctionnalitÈs</li>
-							<li>Code mÈtier</li>
+							<li>Fonctionnalit√©s</li>
+							<li>Code m√©tier</li>
 							<li>Appel de webservice</li>
 						</ul>
 					</section>
 					<section>
 						<h2>AngularJS...</h2>
 						<ul>
-							<li>Service : propriÈtÈs = fonctions</li>
-							<li>Factory : retourner un objet o˘ les propriÈtÈs sont des fonctions</li>
-							<li>Provider : propriÈtÈ $get de type fonction retournant líobjet</li>
+							<li>Service : propri√©t√©s = fonctions</li>
+							<li>Factory : retourner un objet o√π les propri√©t√©s sont des fonctions</li>
+							<li>Provider : propri√©t√© $get de type fonction retournant l'objet</li>
 						</ul>
 						<pre><code class="typescript">angular
 	.module('foo')
@@ -227,7 +276,7 @@ angular
 					</section>
 					<section>
 						<h2>Angular !</h2>
-						<p>POO = classe + mÈthodes (+ attributs)</p>
+						<p>POO = classe + m√©thodes (+ attributs)</p>
 						<pre><code class="typescript">import { Injectable } from '@angular/core';
 import { OtherService } from '...';
 
@@ -246,8 +295,8 @@ class MyService {
 				<section>
 					<section>
 						<h2>Les pipes</h2>
-						<p>Transformation de donnÈes</p>
-						<pre><code class="html">&lt;span&gt;{{'toto' | upper}}&lt;/span&gt;</code></pre>
+						<p>Transformation de donn√©es</p>
+						<pre><code class="html"><span>{{'toto' | upper}}</span></code></pre>
 					</section>
 					<section>
 						<h2>Les pipes</h2>
@@ -268,7 +317,7 @@ class MyService {
 						<pre><code class="typescript">interface PipeTransform {
 	transform(value: any, ...args: any[]): any;
 }</code></pre>
-						<p>ImplÈmentation</p>
+						<p>Impl√©mentation</p>
 						<pre><code class="typescript">import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'upper' })
@@ -292,13 +341,13 @@ class UpperPipe implements PipeTransform {
 	template: 'Hello world!'
 })
 class HelloComponent {
-	// properties &amp; methods
+	// properties & methods
 }</code></pre>
 						<ul>
-							<li><code>class</code> : contrÙleur</li>
+							<li><code>class</code> : contr√¥leur</li>
 							<li><code>template</code> : vue</li>
 						</ul>
-						<pre><code class="html">&lt;say-hello&gt;&lt;/say-hello&gt;</code></pre>
+						<pre><code class="html"><say-hello></say-hello></code></pre>
 					</section>
 					<section>
 						<h3>Et en JavaScript ?</h3>
@@ -316,16 +365,16 @@ class HelloComponent {
 					<section>
 						<h3>Databinding</h3>
 						<ul>
-							<li>Lien vue-contrÙleur</li>
+							<li>Lien vue-contr√¥leur</li>
 							<li>AngularJS : n'est plus automatiquement bi-directionnel</li>
 						</ul>
 						<pre><code class="typescript">@Component({
 	selector: 'sample-binding',
 	template: `
-		&lt;input [value]=&quot;name&quot;&gt;
-		&lt;span&gt;{{count}}&lt;/span&gt;
-		&lt;button (click)=&quot;handler()&quot;&gt;+&lt;/button&gt;
-		&lt;input type=&quot;number&quot; [(ngModel)]=&quot;count&quot;&gt;`
+		<input [value]="name">
+		<span>{{count}}</span>
+		<button (click)="handler()">+</button>
+		<input type="number" [(ngModel)]="count">`
 })
 export class TemplateComponent {
 	name: string = 'Julien';
@@ -338,10 +387,10 @@ export class TemplateComponent {
 				</section>
 				<section>
 					<section>
-						<h2>Penser "rÈutilisable"</h2>
+						<h2>Penser "r√©utilisable"</h2>
 					</section>
 					<section>
-						<h3>HiÈrarchie du DOM</h3>
+						<h3>Hi√©rarchie du DOM</h3>
 						<p>Pattern composite</p>
 						<img data-src="img/DOM-hierarchy.png">
 					</section>
@@ -350,53 +399,53 @@ export class TemplateComponent {
 						<pre><code class="typescript">@Component({
 	selector: 'my-app',
 	template: `
-		&lt;my-menu&gt;&lt;/my-menu&gt;
-		&lt;my-content&gt;&lt;/my-content&gt;`
+		<my-menu></my-menu>
+		<my-content></my-content>`
 })
 class AppComponent {}
 
 @Component({
 	selector: 'my-content',
 	template: `
-		&lt;my-header&gt;&lt;/my-header&gt;
-		&lt;my-details&gt;&lt;/my-details&gt;
-		&lt;my-footer&gt;&lt;/my-footer&gt;`
+		<my-header></my-header>
+		<my-details></my-details>
+		<my-footer></my-footer>`
 })
 class ContentComponent {}</code></pre>
-						<pre><code class="html">&lt;my-app&gt;
-	&lt;my-menu&gt;&lt;/my-menu&gt;
-	&lt;my-content&gt;
-		&lt;my-header&gt;&lt;/my-header&gt;
-		&lt;my-details&gt;&lt;/my-details&gt;
-		&lt;my-footer&gt;&lt;/my-footer&gt;
-	&lt;/my-content&gt;
-&lt;/my-app&gt;</code></pre>
+						<pre><code class="html"><my-app>
+	<my-menu></my-menu>
+	<my-content>
+		<my-header></my-header>
+		<my-details></my-details>
+		<my-footer></my-footer>
+	</my-content>
+</my-app></code></pre>
 					</section>
 					<section>
-						<h3>OrientÈ composant</h3>
+						<h3>Orient√© composant</h3>
 						<img data-src="img/component.png">
 						<ul>
 							<li>
-								100% indÈpendant
+								100% ind√©pendant
 								<ul>
 									<li>Style</li>
-									<li>ContrÙleur : modËle &amp; methods</li>
+									<li>Contr√¥leur : mod√®le & methods</li>
 								</ul>
 							</li>
 							<li>
-								EntrÈe
+								Entr√©e
 								<ul>
 									<li>Valeur</li>
 									<li>Composants fils</li>
 								</ul>
 							</li>
-							<li>Sortie : ÈvÈnement</li>
+							<li>Sortie : √©v√©nement</li>
 						</ul>
 					</section>
 				</section>
 				<section>
 					<section>
-						<h2>Les paramËtres</h2>
+						<h2>Les param√®tres</h2>
 					</section>
 					<section>
 						<h3>La communiation</h3>
@@ -406,17 +455,17 @@ class ContentComponent {}</code></pre>
 								2 sens :
 								<ul>
 									<li>Sous-composants : valeur</li>
-									<li>Composant parent : ÈvÈnement</li>
+									<li>Composant parent : √©v√©nement</li>
 								</ul>
 							</li>
 						</ul>
 					</section>
 					<section>
-						<h3>L'implÈmentation</h3>
+						<h3>L'impl√©mentation</h3>
 						<p>TypeScript : annotations</p>
 						<ul>
 							<li>
-								EntrÈe :
+								Entr√©e :
 								<ul>
 									<li>Attribut : <code>@Input()</code></li>
 									<li>Composants fils : <code>@ContentChild()</code></li>
@@ -430,7 +479,7 @@ class ContentComponent {}</code></pre>
 						<h2>Exemple: le tableau <code>&lt;table&gt;</code></h2>
 					</section>
 					<section>
-						<p>Les valeurs ‡ afficher</p>
+						<p>Les valeurs √† afficher</p>
 						<pre><code class="typescript">interface Car {
 	id: number;
 	name: string;
@@ -439,17 +488,17 @@ class ContentComponent {}</code></pre>
 
 let cars: Car[] = [
 	{ id: 1, name: 'Golf GTI', brand: 'Volkswagen' },
-	{ id: 2, name: 'D&eacute;capotable rouge', brand: 'BMW' },
+	{ id: 2, name: 'D√©capotable rouge', brand: 'BMW' },
 	{ id: 3, name: 'Matiz', brand: 'Chevrolet' }
-]</code></pre>
+];</code></pre>
 					</section>
 					<section>
 						<p>Le besoin</p>
-						<pre><code class="html">&lt;p62-table [values]=&quot;cars&quot; (selected)=&quot;onRowSelected($event)&quot;&gt;
-	&lt;p62-column title=&quot;Code&quot; field=&quot;id&quot;&gt;&lt;/p62-column&gt;
-	&lt;p62-column title=&quot;Designation&quot; field=&quot;name&quot;&gt;&lt;/p62-column&gt;
-	&lt;p62-column title=&quot;Brand&quot; field=&quot;brand&quot;&gt;&lt;/p62-column&gt;
-&lt;/p62-table&gt;</code></pre>
+						<pre><code class="html"><p62-table [values]="cars" (selected)="onRowSelected($event)">
+	<p62-column title="Code" field="id"></p62-column>
+	<p62-column title="Designation" field="name"></p62-column>
+	<p62-column title="Brand" field="brand"></p62-column>
+</p62-table></code></pre>
 						<pre><code class="typescript">@Component({
 	selector: 'p62-table-sample',
 	template: `...`
@@ -463,7 +512,7 @@ export class SampleTableComponent {
 }</code></pre>
 					</section>
 					<section>
-						<p>L'implÈmentation</p>
+						<p>L'impl√©mentation</p>
 						<pre><code class="html">import { Component, Input, Output, EventEmitter, ContentChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -479,18 +528,18 @@ export class ColumnComponent {
 @Component({
 	selector: 'p62-table',
 	template: `
-		&lt;table&gt;
-			&lt;thead&gt;
-				&lt;tr&gt;
-					&lt;th *ngFor=&quot;let column of columns&quot;&gt;{{column.title}}&lt;/th&gt;
-				&lt;/tr&gt;
-			&lt;/thead&gt;
-			&lt;tbody&gt;
-				&lt;tr *ngFor=&quot;let value of values&quot;&gt;
-					&lt;td *ngFor=&quot;let column of columns&quot; (click)=&quot;emitSelection(value)&quot;&gt;{{value[column.field]}}&lt;/td&gt;
-				&lt;/tr&gt;
-			&lt;/tbody&gt;
-		&lt;/table&gt;`,
+		<table>
+			<thead>
+				<tr>
+					<th *ngFor="let column of columns">{{column.title}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let value of values">
+					<td *ngFor="let column of columns" (click)="emitSelection(value)">{{value[column.field]}}</td>
+				</tr>
+			</tbody>
+		</table>`,
 	styles: [ `
 		table, th, td { border: 1px solid black; }
 		thead { font-weight: bold; }`
@@ -498,8 +547,8 @@ export class ColumnComponent {
 })
 export class TableComponent {
 	@Input() values: any[];
-	@ContentChildren(ColumnComponent) columns: QueryList&lt;ColumnComponent&gt;;
-	@Output() selected: EventEmitter&lt;any&gt; = new EventEmitter&lt;any&gt;();
+	@ContentChildren(ColumnComponent) columns: QueryList<ColumnComponent>;
+	@Output() selected: EventEmitter<any> = new EventEmitter<any>();
 
 	emitSelection(value: any): void {
 		this.selected.emit(value);
@@ -521,7 +570,7 @@ export class TableComponent {
 					</ul>
 				</section>
 				<section>
-					<h2>Programmation rÈactive</h2>
+					<h2>Programmation r√©active</h2>
 					<ul>
 						<li>Pattern observateur</li>
 						<li>Promise : natif JavaScript & ECMAScript</li>
@@ -543,7 +592,7 @@ export class TableComponent {
 					</ul>
 				</section>
 				<section>
-					<h2>InconvÈnients</h2>
+					<h2>Inconv√©nients</h2>
 					<ul>
 						<li>
 							Setup du projet
@@ -570,7 +619,7 @@ export class TableComponent {
 								<li>
 									Adapteurs :
 									<ul>
-										<li><code>ngForward</code> : exÈcuter du code Angular dans une application AngularJS (communautaire)
+										<li><code>ngForward</code> : ex√©cuter du code Angular dans une application AngularJS (communautaire)
 										<li><code>ngUpgrade</code> : coexister les 2 frameworks (Google)</li>
 									</ul>
 								</li>
@@ -581,9 +630,15 @@ export class TableComponent {
 				</section>
 			</div>
 		</div>
+		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
 		<script>
-			Reveal.initialize();
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
 		</script>
+		<script type="text/javascript" src="plugin/highlight/highlight.js"></script>
 	</body>
 </html>
