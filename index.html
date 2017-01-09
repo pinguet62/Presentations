@@ -3,7 +3,7 @@
 		<title>Angular</title>
 		<link rel="icon" type="image/svg+xml" href="img/Angular.svg" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/reveal.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/black.css">
+		<link id="theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/black.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/css/zenburn.css">
 	</head>
 	<body>
@@ -626,6 +626,34 @@ export class TableComponent {
 							</ul>
 						</li>
 						<li>Coupure avec AngularJS</li>
+					</ul>
+				</section>
+				<section id="config">
+					<h2>Config</h2>
+					<ul>
+						<li>
+							Transition :
+							<a href="?transition=none#/config">None</a> -
+							<a href="?transition=fade#/config">Fade</a> -
+							<a href="?transition=slide#/config">Slide</a> -
+							<a href="?transition=convex#/config">Convex</a> -
+							<a href="?transition=concave#/config">Concave</a> -
+							<a href="?transition=zoom#/config">Zoom</a>
+						</li>
+						<li>
+							Thème :
+							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/black.css'); return false;">Black (default)</a> -
+							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/white.css'); return false;">White</a> -
+							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/league.css'); return false;">League</a> -
+							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/sky.css'); return false;">Sky</a> -
+							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/beige.css'); return false;">Beige</a> -
+							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/simple.css'); return false;">Simple</a> -
+							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/serif.css'); return false;">Serif</a> -
+							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/blood.css'); return false;">Blood</a> -
+							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/night.css'); return false;">Night</a> -
+							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/moon.css'); return false;">Moon</a> -
+							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/solarized.css'); return false;">Solarized</a>
+						</li>
 					</ul>
 				</section>
 			</div>
