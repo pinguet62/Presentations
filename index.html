@@ -3,6 +3,7 @@
 		<title>Angular</title>
 		<link rel="icon" type="image/svg+xml" href="img/Angular.svg" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/reveal.css">
 		<link id="theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/black.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/css/zenburn.css">
 	</head>
@@ -12,10 +13,18 @@
 				<section>
 					<h1>Angular<h1>
 					<img data-src="img/Angular.svg" height="50%">
+					<footer>
+						<a href="https://github.com/pinguet62/Angular2-Presentation">
+							<img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" height="50" style="border: none;" />
+						</a>
+						<a href="http://creativecommons.org/licenses/by-nc-sa/4.0">
+							<img src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png" height="25" style="border: none;" />
+						</a>
+					</footer>
 				</section>
 				<section>
 					<h2>Présentation (très) rapide</h2>
-					<ul style="width:100%">
+					<ul class="fragment" style="width:100%">
 						<li>Philosophie d'AngularJS conservée</li>
 						<li>Framework MVC</li>
 						<li>
@@ -25,6 +34,13 @@
 <ul><li *ngFor="let it of list">{{it}}</li></ul></code></pre>
 						</li>
 					</ul>
+					<aside class="notes">
+						<ul>
+							<li>
+								Qui fait du développement web ?
+							</li>
+						</ul>
+					<aside>
 				</section>
 				<section>
 					<section>
@@ -96,93 +112,94 @@
 							<li>
 								Avantages :
 								<ul>
-									<li>Typage statique (compilateur)</li>
-									<li>Annotations (décorateur)</li>
+									<li>Typage statique</li>
+									<li>Annotations</li>
 								</ul>
 							</li>
 						</ul>
 					</section>
+					<section data-background-image="https://media.giphy.com/media/Ea98bxQoWmAoM/giphy.gif">
+						<q>Encore un nouveau langage à apprendre ?</q>
+					</section>
 					<section>
 						<h3>Pourquoi il faut choisir TypeScript</h3>
-						<q>Encore un nouveau langage à apprendre ?</q>
-						<pre><code class="typescript">class Polygone {
-	hauteur: number;
-	largeur: number;
-	
-	constructor(hauteur: number, largeur: number) {
-		this.hauteur = hauteur;
-		this.largeur = largeur;
-	}
-	
-	calcArea(): number {
-		return this.hauteur * this.largeur;
-	}
+						<pre class="fragment"><code class="typescript">@CanSpeak('Hello world!')
+class Person {
+    private name: string;
+
+    constructor(name: string) {
+        this.name = name;
+    }
+
+    introduceYourself(): void {
+        console.log('My name is ' + this.name);
+    }
 }
 
-let carre: Polygone = new Polygone(4, 4);
-let area: number = carre.calcArea();</code></pre>
+let p: Person = new Person('Kevin');
+p.introduceYourself(); // My name is Kevin</code></pre>
+						<pre class="fragment"><code class="typescript">(&lt;any&gt; p).speak(); // Hello world!</code></pre>
 					</section>
 					<section>
-						<h3>Essayons <i>ECMAScript 6</i> !</h3>
-						<pre><code class="typescript">class Polygone {
-	constructor(hauteur, largeur) {
-		this.hauteur = hauteur;
-		this.largeur = largeur;
+						<h4>Essayons <i>ECMAScript 6</i> !</h4>
+						<pre class="fragment"><code class="typescript">class Person {
+    constructor(name) {
+        this.name = name;
+    }
+
+    introduceYourself() {
+        console.log('My name is ' + this.name);
+    }
+}
+
+let p = new Person('Kevin');
+p.introduceYourself(); // My name is Kevin</code></pre>
+						<q class="fragment">Heu, c'est pareil non ?</q>
+					</section>
+					<section>
+						<h4>Quant à <i>ECMAScript 5</i>...</h4>
+						<pre class="fragment"><code class="typescript">var Person = (function () {
+	function Person(name) {
+		this.name = name;
 	}
 	
-	calcArea() {
-		return this.hauteur * this.largeur;
-	}
-}
-let carre = new Polygone(4, 4);
-let area = carre.calcArea();</code></pre>
-						<q>Heu, c'est pareil non ?</q>
+	Person.prototype.introduceYourself = function () {
+		console.log('My name is ' + this.name);
+	};
+	
+	return Person;
+}());
+
+var p = new Person('Kevin');
+p.introduceYourself(); // My name is Kevin</code></pre>
+						<q class="fragment">Qui a compris ?</q>
 					</section>
 					<section>
-						<h3>Quant à <i>ECMAScript 5</i>...</h3>
-						<pre><code class="typescript">var Polygone = (function () {
-	function Polygone(hauteur, largeur) {
-		this.hauteur = hauteur;
-		this.largeur = largeur;
-	}
-	Polygone.prototype.calcArea = function () {
-		return this.hauteur * this.largeur;
-	};
-	return Polygone;
-}());
-var carre = new Polygone(4, 4);
-var area = carre.calcArea();</code></pre>
-						<q>Ok, TypeScript c'est cool !</q>
+						<h4>Typage facultatif</h4>
+						<p>Type <code>any</code></p>
+						<pre><code class="typescript">let p1: any = new Person('Kevin');
+let p2 = new Person('Kevin');</code></pre>
 					</section>
 					<section>
 						<h3>Les annotations</h3>
-						<pre class="fragment"><code class="typescript">@CanSpeak('Hello world!')
-class Beautifull {}</code></pre>
-						<pre class="fragment"><code class="typescript">function CanSpeak(message: string) {
+						<ul style="width:100%">
+							<li class="fragment">
+								TypeScript :
+								<pre><code class="typescript">@CanSpeak('Hello world!')
+class Person {}</code></pre>
+								<pre class="fragment"><code class="typescript">function CanSpeak(message: string) {
 	return function(target: Function) {
 		target.prototype.speak = () => console.log(message);
 	}
 }</code></pre>
-						<pre class="fragment"><code class="typescript">let obj = new Beautifull();
-obj.speak(); // 'Hello world!'</code></pre>
+							</li>
+							<li class="fragment">
+								JavaScript :
+								<pre class="fragment"><code class="typescript">CanSpeak('Hello world!')(Person);</code></pre>
+							</li>
 					</section>
-					<section>
-						<h3>Finalement, est-ce une contrainte ?</h3>
-						<ul style="width:100%">
-							<li class="fragment">
-								Annotations : fonction
-								<pre><code class="typescript">CanSpeak('Hello world!')(Beautifull);</code></pre>
-							</li>
-							<li class="fragment">
-								Typage : facultatif ou "type" <code>any</code>
-								<pre><code class="typescript">class Polygone {
-	constructor(hauteur, largeur: any) {
-		// ...
-	}
-	// ...
-}</code></pre>
-							</li>
-						</ul>
+					<section data-background-image="https://media.giphy.com/media/okzSJrCT4QlwI/giphy.gif">
+						<q>Ok, TypeScript c'est cool !</q>
 					</section>
 				</section>
 				<section>
@@ -663,7 +680,9 @@ export class TableComponent {
 		<script>
 			Reveal.initialize({
 				dependencies: [
-					{ src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+					{ src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/notes/notes.js', async: true }
+					//{ src: 'https://rawgit.com/hakimel/reveal.js/master/plugin/notes/notes.js', async: true }
 				]
 			});
 		</script>
