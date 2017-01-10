@@ -681,8 +681,7 @@ export class TableComponent {
 			Reveal.initialize({
 				dependencies: [
 					{ src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					//{ src: 'plugin/notes/notes.js', async: true }
-					{ src: 'https://rawgit.com/hakimel/reveal.js/master/plugin/notes/notes.js', async: true }
+					{ src: 'https://rawgit.com/hakimel/reveal.js/master/plugin/notes/notes.js', async: true } // notes: local workaround: { src: 'plugin/notes/notes.js', async: true }
 				]
 			});
 		</script>
