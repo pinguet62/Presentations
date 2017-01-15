@@ -20,7 +20,13 @@
 						<a href="http://creativecommons.org/licenses/by-nc-sa/4.0">
 							<img src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png" height="25" style="border: none;" />
 						</a>
+						<a style="font-size:medium" href="http://lab.hakim.se/reveal-js">Reveal.js</a>
 					</footer>
+					<aside class="notes">
+						<ul>
+							<li>Qui fait du développement web ?</li>
+						</ul>
+					<aside>
 				</section>
 				<section>
 					<h2>Présentation (très) rapide</h2>
@@ -36,30 +42,45 @@
 					</ul>
 					<aside class="notes">
 						<ul>
-							<li>
-								Qui fait du développement web ?
-							</li>
+							<li>Philosophie : directives, services</li>
 						</ul>
 					<aside>
 				</section>
 				<section>
 					<section>
 						<h2>Ambitions</h2>
+						<aside class="notes">
+							<ul>
+								<li>Pourquoi une 2nd version ?</li>
+								<li>Pourquoi tout changer ?</li>
+							</ul>
+						<aside>
 					</section>
 					<section>
 						<h3>Performance</h3>
-						<ul>
+						<ul class="fragment">
 							<li><i>Render</i> : 2,5 fois plus rapide au démarrage</li>
 							<li><i>Rerender</i> : 4,2 fois plus rapide lors de l'utilisation</li>
 							<li><i>Permanent</i> : 5 fois plus rapide tout le temps</li>
 							<li><i>Web workers</i> : 2 fois plus rapides</li>
 						</ul>
+						<aside class="notes">
+							<ul>
+								<li>AngularJS : grosses application lentes</li>
+								<li>Date : version beta</li>
+							</ul>
+						<aside>
 					</section>
 					<section>
 						<h3>Futur du web</h3>
 						<ul>
-							<li><i>Modulaire</i> : ES6 & TypeScript</li>
-							<li>
+							<li class="fragment">
+								<i>Modulaire</i>
+								<ul>
+									<li>ES6</li>
+									<li>TypeScript</li>
+								</ul></li>
+							<li class="fragment">
 								<i>Webcomponent</i>
 								<ul>
 									<li>custom element</li>
@@ -68,12 +89,20 @@
 								</ul>
 							</li>
 						</ul>
+						<aside class="notes">
+							<ul>
+								<li>ES6 : nouveauté</li>
+								<li>TypeScript : s'intègre naturellement</li>
+								<li>Webcomponent : réutilisabilité</li>
+							</ul>
+						<aside>
 					</section>
 					<section>
 						<h3>Multi-plateformes</h3>
 						<ul>
-							<li>AngularJS étant principalement Desktop</li>
-							<li>
+							<li class="fragment">AngularJS étant principalement "web desktop"</li>
+							<li class="fragment">
+								Angular
 								<ul>
 									<li>Web</li>
 									<li>Desktop : <a href="http://electron.atom.io">Electron</a></li>
@@ -87,23 +116,43 @@
 								</ul>
 							</li>
 						</ul>
+						<aside class="notes">
+							<ul>
+								<li>AngularJS : pas natif</li>
+								<li>Angular : intégration native</li>
+							</ul>
+						<aside>
 					</section>
 					<section>
 						<h3>Mais encore ?</h3>
-						<ul>
+						<ul class="fragment">
 							<li>Moins compliqué</li>
 							<li>Plus complet</li>
 						</ul>
+						<aside class="notes">
+							<ul>
+								AngularJS
+								<li>où placer le controlleur</li>
+								<li>injection de dépendance</li>
+								<li>callback</li>
+							</ul>
+						<aside>
 					</section>
 				</section>
 				<section>
 					<section>
 						<h2>TypeScript</h2>
 						<img data-src="img/TypeScript.png" height="30%">
+						<aside class="notes">
+							<ul>
+								<li>Choix par Google</li>
+								<li>Supporte JavaScript ou autre (Dart)</li>
+							</ul>
+						<aside>
 					</section>
 					<section>
 						<h3>Qu'est-ce que TypeScript ?</h3>
-						<ul>
+						<ul class="fragment">
 							<li>Transpilation</li>
 							<li>Date de première version : 9 février 2012</li>
 							<li>Influencé par : JavaScript, C#, Java</li>
@@ -139,25 +188,17 @@ class Person {
 let p: Person = new Person('Kevin');
 p.introduceYourself(); // My name is Kevin</code></pre>
 						<pre class="fragment"><code class="typescript">(&lt;any&gt; p).speak(); // Hello world!</code></pre>
+						<aside class="notes">
+							<ul>
+								<li>Syntaxe : proche de Java ou C#</li>
+								<li>Typage : après le nom (comme en Scala)</li>
+								<li>Annotation : modifie l'objet : ajout d'attribut, méthode, ...</li>
+							</ul>
+						<aside>
 					</section>
 					<section>
-						<h4>Essayons <i>ECMAScript 6</i> !</h4>
-						<pre class="fragment"><code class="typescript">class Person {
-    constructor(name) {
-        this.name = name;
-    }
-
-    introduceYourself() {
-        console.log('My name is ' + this.name);
-    }
-}
-
-let p = new Person('Kevin');
-p.introduceYourself(); // My name is Kevin</code></pre>
-						<q class="fragment">Heu, c'est pareil non ?</q>
-					</section>
-					<section>
-						<h4>Quant à <i>ECMAScript 5</i>...</h4>
+						<h4>La syntaxe</h4>
+						<h5>ECMAScript 5</h5>
 						<pre class="fragment"><code class="typescript">var Person = (function () {
 	function Person(name) {
 		this.name = name;
@@ -173,12 +214,45 @@ p.introduceYourself(); // My name is Kevin</code></pre>
 var p = new Person('Kevin');
 p.introduceYourself(); // My name is Kevin</code></pre>
 						<q class="fragment">Qui a compris ?</q>
+						<aside class="notes">
+							<ul>
+								<li>Classe = fonction & prototype</li>
+							</ul>
+						<aside>
 					</section>
 					<section>
-						<h4>Typage facultatif</h4>
-						<p>Type <code>any</code></p>
-						<pre><code class="typescript">let p1: any = new Person('Kevin');
+						<h4>La syntaxe</h4>
+						<h5>ECMAScript 6</h5>
+						<pre class="fragment"><code class="typescript">class Person {
+    constructor(name) {
+        this.name = name;
+    }
+
+    introduceYourself() {
+        console.log('My name is ' + this.name);
+    }
+}
+
+let p = new Person('Kevin');
+p.introduceYourself(); // My name is Kevin</code></pre>
+						<q class="fragment">Heu, c'est pareil non ?</q>
+						<aside class="notes">
+							<ul>
+								<li>Typage : absent</li>
+								<li>Attributs : non déclarés, ajoutés dynamiquement</li>
+							</ul>
+						<aside>
+					</section>
+					<section>
+						<h4>Le typage</h4>
+						<ul style="width:100%">
+							<li class="fragment">
+								Facultatif : type <code>any</code>
+								<pre><code class="typescript">let p1: any = new Person('Kevin');
 let p2 = new Person('Kevin');</code></pre>
+							</li>
+							<li class="fragment">Contrainte, mais sécurité !</li>
+						</ul>
 					</section>
 					<section>
 						<h3>Les annotations</h3>
@@ -186,7 +260,9 @@ let p2 = new Person('Kevin');</code></pre>
 							<li class="fragment">
 								TypeScript :
 								<pre><code class="typescript">@CanSpeak('Hello world!')
-class Person {}</code></pre>
+class Person {}
+
+// p.speak();</code></pre>
 								<pre class="fragment"><code class="typescript">function CanSpeak(message: string) {
 	return function(target: Function) {
 		target.prototype.speak = () => console.log(message);
@@ -197,14 +273,22 @@ class Person {}</code></pre>
 								JavaScript :
 								<pre class="fragment"><code class="typescript">CanSpeak('Hello world!')(Person);</code></pre>
 							</li>
+							<li class="fragment">ECMAScript 2016 : <i>décorateur</i></li>
 					</section>
 					<section data-background-image="https://media.giphy.com/media/okzSJrCT4QlwI/giphy.gif">
 						<q>Ok, TypeScript c'est cool !</q>
+						<aside class="notes">
+							<ul>
+								<li>Syntaxe native ES6</li>
+								<li>Typage : aide facultative</li>
+								<li>Annotation : support d'ES7</li>
+							</ul>
+						<aside>
 					</section>
 				</section>
 				<section>
 					<h2>Communauté</h2>
-					<div>
+					<div class="fragment">
 						<div>
 							<div style="float:left; width:25%"><img data-src="img/TypeScript.png" height="150"></div>
 							<div style="float:left; width:25%"><img data-src="img/Ionic 2.png" height="150"></div>
@@ -218,6 +302,12 @@ class Person {}</code></pre>
 							<div style="float:left; width:25%"><img data-src="img/Ember.png" height="75"></div>
 						</div>
 					</div>
+					<aside class="notes">
+						<ul>
+							<li>Seul on n'est rien</li>
+							<li>Version béta</li>
+						</ul>
+					<aside>
 				</section>
 				<section>
 					<h2>Angular</h2>
@@ -239,6 +329,11 @@ class Person {}</code></pre>
 						<li>Router</li>
 						<li>ngUpgrade / ngForgrade</li>
 					</ul>
+					<aside class="notes">
+						<ul>
+							<li>Animation : intégration de Web Animations</li>
+						</ul>
+					<aside>
 				</section>
 				<section>
 					<h2>Types de "modules"</h2>
