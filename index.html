@@ -26,7 +26,7 @@
 						<ul>
 							<li>Qui fait du développement web ?</li>
 						</ul>
-					<aside>
+					</aside>
 				</section>
 				<section>
 					<h2>Présentation (très) rapide</h2>
@@ -44,7 +44,7 @@
 						<ul>
 							<li>Philosophie : directives, services</li>
 						</ul>
-					<aside>
+					</aside>
 				</section>
 				<section>
 					<section>
@@ -54,7 +54,7 @@
 								<li>Pourquoi une 2nd version ?</li>
 								<li>Pourquoi tout changer ?</li>
 							</ul>
-						<aside>
+						</aside>
 					</section>
 					<section>
 						<h3>Performance</h3>
@@ -69,7 +69,7 @@
 								<li>AngularJS : grosses application lentes</li>
 								<li>Date : version beta</li>
 							</ul>
-						<aside>
+						</aside>
 					</section>
 					<section>
 						<h3>Futur du web</h3>
@@ -95,7 +95,7 @@
 								<li>TypeScript : s'intègre naturellement</li>
 								<li>Webcomponent : réutilisabilité</li>
 							</ul>
-						<aside>
+						</aside>
 					</section>
 					<section>
 						<h3>Multi-plateformes</h3>
@@ -121,7 +121,7 @@
 								<li>AngularJS : pas natif</li>
 								<li>Angular : intégration native</li>
 							</ul>
-						<aside>
+						</aside>
 					</section>
 					<section>
 						<h3>Mais encore ?</h3>
@@ -136,7 +136,7 @@
 								<li>injection de dépendance</li>
 								<li>callback</li>
 							</ul>
-						<aside>
+						</aside>
 					</section>
 				</section>
 				<section>
@@ -148,7 +148,7 @@
 								<li>Choix par Google</li>
 								<li>Supporte JavaScript ou autre (Dart)</li>
 							</ul>
-						<aside>
+						</aside>
 					</section>
 					<section>
 						<h3>Qu'est-ce que TypeScript ?</h3>
@@ -194,7 +194,7 @@ p.introduceYourself(); // My name is Kevin</code></pre>
 								<li>Typage : après le nom (comme en Scala)</li>
 								<li>Annotation : modifie l'objet : ajout d'attribut, méthode, ...</li>
 							</ul>
-						<aside>
+						</aside>
 					</section>
 					<section>
 						<h4>La syntaxe</h4>
@@ -218,7 +218,7 @@ p.introduceYourself(); // My name is Kevin</code></pre>
 							<ul>
 								<li>Classe = fonction & prototype</li>
 							</ul>
-						<aside>
+						</aside>
 					</section>
 					<section>
 						<h4>La syntaxe</h4>
@@ -241,7 +241,7 @@ p.introduceYourself(); // My name is Kevin</code></pre>
 								<li>Typage : absent</li>
 								<li>Attributs : non déclarés, ajoutés dynamiquement</li>
 							</ul>
-						<aside>
+						</aside>
 					</section>
 					<section>
 						<h4>Le typage</h4>
@@ -274,6 +274,7 @@ class Person {}
 								<pre class="fragment"><code class="typescript">CanSpeak('Hello world!')(Person);</code></pre>
 							</li>
 							<li class="fragment">ECMAScript 2016 : <i>décorateur</i></li>
+						</ul>
 					</section>
 					<section data-background-image="https://media.giphy.com/media/okzSJrCT4QlwI/giphy.gif">
 						<q>Ok, TypeScript c'est cool !</q>
@@ -283,12 +284,107 @@ class Person {}
 								<li>Typage : aide facultative</li>
 								<li>Annotation : support d'ES7</li>
 							</ul>
-						<aside>
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Angular & <code>Observable</code></h2>
+						<img src="http://reactivex.io/assets/Rx_Logo_S.png" height="30%">
+						<aside class="notes">
+							<ul>
+								<li>2nd point important avant de continuer</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h2>la programmation réactive</h2>
+						<p>
+							<q>La programmation réactive est un paradigme de programmation visant à conserver une cohérence d'ensemble en propageant les modifications d'une source réactive (modification d'une variable, entrée utilisateur, etc.) aux éléments dépendants de cette source.</q>
+							<cite>Wikipedia</cite>
+						</p>
+						<ul>
+							<li>Patron : Observateur</li>
+							<li>
+								Utilisation :
+								<ul>
+									<li>Asynchrone</li>
+									<li>Databinding</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Les promises</h3>
+						<p class="fragment">ES5</p>
+						<pre class="fragment"><code class="typescript">let promise = new Promise(
+    (resolve, reject) => {
+        // ...
+        resolve('Success...');
+        //reject('Fail...');
+    }
+);</code></pre>
+                    	<pre class="fragment"><code class="typescript">promise.then( // Ok
+    (val) => console.log(val)
+).catch( // Error
+    (err) => console.error(err)
+);</code></pre>
+						<aside class="notes">
+							<ul>
+								<li>Inconvénient : <code>resolve()</code> dans constructeur</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h3>ReactiveX : RxJS</h3>
+						<p>Bibliothèque externe</p>
+						<pre class="fragment"><code class="typescript">import {EventEmitter} from '@angular/core';
+import {Observable} from "rxjs";</code></pre>
+						<pre class="fragment"><code class="typescript">let observable: EventEmitter&lt;string&gt; = new EventEmitter&lt;string&gt;();</code></pre>
+						<pre class="fragment"><code class="typescript">observable.subscribe(
+    (val: string) => console.log(val),
+    (err: any) => console.error(err)
+);</code></pre>
+						<pre class="fragment"><code class="typescript">observable.emit('Success...');
+//observable.error('Fail...');</code></pre>
+						<aside class="notes">
+							<ul>
+								<li>Implémentation dans de nombreux langages</li>
+								<li>Bibliothèque externe
+									<ul>
+										<li>Dépendance NPM (<code>package.json</code>)</li>
+										<li>Modularité : SystemJS/Webpack</li>
+										<li><code>import</code> TypeScript</li>
+									</ul>
+								</li>
+								<li><code>EventEmitter extends Observable</code></li>
+								<li><code>subscribe</code> = <code>then</code> + <code>catch</code></li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h3>Pourquoi ?</h3>
+						<ul class="fragment">
+							<li>Gestion de multiples événements</li>
+							<li>Annulable</li>
+							<li><i>Stream</i> : map/filter/reduce</li>
+							<li>Support de <code>Promise</code></li>
+						</ul>
+						<aside class="notes">
+							<ul>
+								<li>Stream
+									<ul>
+										<li>Java 8 & API Collector, C# & Linq</li>
+										<li>Webservice : <s>Response</s> traitement des données (DTO, sous-propriétés, ...)</li>
+									</ul>
+								</li>
+							</ul>
+						</aside>
 					</section>
 				</section>
 				<section>
 					<h2>Communauté</h2>
-					<div class="fragment">
+					<div>
 						<div>
 							<div style="float:left; width:25%"><img data-src="img/TypeScript.png" height="150"></div>
 							<div style="float:left; width:25%"><img data-src="img/Ionic 2.png" height="150"></div>
@@ -304,10 +400,10 @@ class Person {}
 					</div>
 					<aside class="notes">
 						<ul>
-							<li>Seul on n'est rien</li>
-							<li>Version béta</li>
+							<li>Seul un framework n'est rien</li>
+							<li>Depuis la version béta</li>
 						</ul>
-					<aside>
+					</aside>
 				</section>
 				<section>
 					<h2>Angular</h2>
@@ -331,65 +427,103 @@ class Person {}
 					</ul>
 					<aside class="notes">
 						<ul>
+							<li>Un framework <s>bibliothèque</s></li>
 							<li>Animation : intégration de Web Animations</li>
 						</ul>
-					<aside>
+					</aside>
 				</section>
 				<section>
 					<h2>Types de "modules"</h2>
 					<ul>
-						<li>Service = simple classe avec fonctionnalités</li>
-						<li>Directives (repris d'AngularJS) = modification du DOM</li>
-						<li>Component = directive + template</li>
-						<li>Pipe (repris d'AngularJS sous le nom de Filter) = transformateur de données</li>
+						<li>Service</li>
+						<li>Pipe</li>
+						<li>Directives</li>
+						<li>Component</li>
 					</ul>
+					<aside class="notes">
+						<ul>
+							<li>4 grandes notions</li>
+							<li>Reprises d'AngularJS</li>
+							<li>
+								<ol>
+									TODO move to section
+									<li>modification du DOM</li>
+									<li>directive + template</li>
+									<li>transformateur de données</li>
+								</ol>
+							</li>
+							<li>Présentés par la suite</li>
+						</ul>
+					</aside>
 				</section>
 				<section>
 					<section>
 						<h2>Les services</h2>
-						<ul>
-							<li>Fonctionnalités</li>
-							<li>Code métier</li>
-							<li>Appel de webservice</li>
+						<ul class="fragment">
+							<li>
+								Fournisseur de fonctionnalités</li>
+								<ul>
+									<li>Code métier</li>
+									<li>Appel de webservice</li>
+								</ul>
+							</li>
+							<li>Découpage vue/service</li>
+							<li>Utilisé par les composants finaux</li>
 						</ul>
+					<aside class="notes">
+						<ul>
+							<li>
+								Exemple :
+								<ul>
+									<li>service <code>myService</code></li>
+									<li>méthode <code>doSomething(arg)</code></li>
+									<li>dépendance à <code>otherService</code></li>
+								</ul>
+						</ul>
+					</aside>
 					</section>
 					<section>
 						<h2>AngularJS...</h2>
-						<ul>
-							<li>Service : propriétés = fonctions</li>
-							<li>Factory : retourner un objet où les propriétés sont des fonctions</li>
-							<li>Provider : propriété $get de type fonction retournant l'objet</li>
-						</ul>
-						<pre><code class="typescript">angular
-	.module('foo')
-	.service('myService', ['otherService', function(otherService) {
-		this.doSomething = function (arg) {
-			// ...
-		}
-	}]);
-
-angular
-	.module('foo')
-	.factory('myService', ['otherService', function(otherService) {
-		return {
-			doSomething: function (arg) {
-				// ...
-			}
-		};
-	}]);
-
-angular
-	.module('foo')
-	.provider('myService', ['otherService', function(otherService) {
-		this.$get = function () {
-			return ...
-		}
-	}]);</code></pre>
+						<p class="fragment">Service vs Factory vs Provider</p>
+						<pre class="fragment"><code class="typescript">angular.module('foo')
+       .service('myService', ['otherService', function(otherService) {
+           this.doSomething = function (arg) { /*...*/ }
+       }]);</code></pre>
+						<pre class="fragment"><code class="typescript">angular.module('foo')
+       .factory('myService', ['otherService', function(otherService) {
+           return {
+               doSomething: function (arg) { /*...*/ }
+           };
+       }]);</code></pre>
+						<pre class="fragment"><code class="typescript">angular.module('foo')
+       .provider('myService', ['otherService', function(otherService) {
+           this.$get = function () {
+               return ...
+           }
+       }]);</code></pre>
+						<aside class="notes">
+							<ul>
+								<li>3 types</li>
+								<ol>
+									<li>Service : propriétés = fonctions</li>
+									<li>Factory : retourner un objet où les propriétés sont des fonctions</li>
+									<li>Provider : propriété <code>$get</code>, de type fonction, retournant l'instance de l'objet</li>
+								</ol>
+							</ul>
+						</aside>
+					</section>
+					<section data-background-image="https://media.giphy.com/media/bEVKYB487Lqxy/giphy.gif">
+						<q>Qui a compris ?</q>
+						<aside class="notes">
+							<ul>
+								<li>Personnellement : jamais compris</li>
+							</ul>
+						</aside>
 					</section>
 					<section>
 						<h2>Angular !</h2>
-						<p>POO = classe + méthodes (+ attributs)</p>
-						<pre><code class="typescript">import { Injectable } from '@angular/core';
+						<p class="fragment">POO = classe + méthodes (+ attributs)</p>
+						<pre class="fragment"><code class="typescript">import { Injectable } from '@angular/core';
 import { OtherService } from '...';
 
 @Injectable()
@@ -402,35 +536,46 @@ class MyService {
 		// ...
 	}
 }</code></pre>
+						<aside class="notes">
+							<ul>
+								<li>On ne peut pas faire plus simple</li>
+							</ul>
+						</aside>
 					</section>
 				</section>
 				<section>
 					<section>
 						<h2>Les pipes</h2>
-						<p>Transformation de données</p>
-						<pre><code class="html"><span>{{'toto' | upper}}</span></code></pre>
+						<p class="fragment">Transformation de données</p>
+						<pre class="fragment"><code class="html"><span>{{'toto' | upper}}</span></code></pre>
+						<aside class="notes">
+							<ul>
+								<li>Cf. Linux</li>
+							</ul>
+						</aside>
 					</section>
 					<section>
-						<h2>Les pipes</h2>
 						<h3>AngularJS...</h3>
-						<p>"filter"</p>
-						<pre><code class="typescript">angular
-	.module('foo', [])
-	.filter('upper', function() {
-		return function(value, arg1, arg2) {
-			return value.toUpperCase();
-		};
-	});</code></pre>
+						<p class="fragment">Nommé "filter"</p>
+						<pre class="fragment"><code class="typescript">angular.module('foo', [])
+       .filter('upper', function() {
+           return function(value, arg1, arg2) {
+               return value.toUpperCase();
+           };
+       });</code></pre>
 					</section>
 					<section>
-						<h2>Les pipes</h2>
 						<h3>Angular !</h3>
-						<p>Interface</p>
-						<pre><code class="typescript">interface PipeTransform {
+						<ul style="width:100%">
+							<li class="fragment">
+								Interface : POO & polymorphisme
+								<pre><code class="typescript">interface PipeTransform {
 	transform(value: any, ...args: any[]): any;
 }</code></pre>
-						<p>Implémentation</p>
-						<pre><code class="typescript">import { Pipe, PipeTransform } from '@angular/core';
+							</li>
+							<li class="fragment">
+								Implémentation
+								<pre><code class="typescript">import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'upper' })
 class UpperPipe implements PipeTransform {
@@ -438,6 +583,119 @@ class UpperPipe implements PipeTransform {
 		return value.toUpperCase();
 	}
 }</code></pre>
+							</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Les directives</h2>
+						<ul class="fragment">
+							<li>Attribut personnalisé</li>
+							<li>Modifier le DOM</li>
+						</ul>
+						<aside class="notes">
+							<ul>
+								<li>Modifier le DOM : comportement ou apparence</li>
+								<li>Exemple : clignoter un élément (CSS <code>backgroung-color</code>)</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h3>AngularJS...</h3>
+						<pre class="fragment"><code class="typescript">angular.module('foo', [])
+       .directive('flashing', function() {
+           return {
+               restrict: 'A',
+               link: function(scope, element, attributes) {
+                   var i = 0;
+                   var initialColor = this.element.style.backgroundColor;
+                   window.setInterval(
+                       function() {
+                           var color = (i%2==0 ? 'yellow' : 'none');
+                           element.css({ backgroundColor: color });
+                           i = i+1;
+                       }, 1000
+                   );
+               }
+           };
+       });</code></pre>
+						<aside class="notes">
+							<ul>
+								<li><code>function</code> dans tous les sens</li>
+								<li><code>restrict</code> : où appliquer la directive</li>
+								<li><code>link</code> : lié au cycle de vie</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h3>Angular !</h3>
+						<pre class="fragment"><code class="typescript">import { Directive, ElementRef } from '@angular/core';
+
+@Directive({ selector: '[flashing]' })
+export class FlashingDirective {
+    constructor(element: ElementRef) {
+        let i: number = 0;
+        let initialColor: string = element.nativeElement.style.backgroundColor;
+        window.setInterval(
+            () => {
+                let color: string = (i%2==0 ? 'yellow' : initialColor);
+                element.nativeElement.style.backgroundColor = color;
+                i = i+1;
+            }, 1000
+        );
+    }
+}</code></pre>
+						<aside class="notes">
+							<ul>
+								<li>Toujours avec des classes</li>
+								<li>Annotation <code>@Directive</code>:</li>
+									<ul>
+										<li>Metadata TypeScript</li>
+										<li><code>selector</code> : sélecteur CSS</li>
+									</ul>
+								<li><code>constructor</code> : injection</li>
+								<li>Propreté : équivalent "stricte" d'AngularJS</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h3>Angular !!!</h3>
+						<pre class="fragment"><code class="typescript">import { Directive, ElementRef } from '@angular/core';
+
+@Directive({ selector: '[flashing]' })
+export class FlashingDirective {
+    private i: number = 0;
+    private initialColor: string;
+    
+    constructor(private element: ElementRef) {
+        this.initialColor = this.element.nativeElement.style.backgroundColor;
+        
+        window.setInterval(
+            () => {
+                this.changeColor();
+                i = i+1;
+            }, 1000
+        );
+    }
+    
+    private changeColor(): void {
+        let color: string = (i%2==0 ? 'yellow' : this.initialColor);
+        this.element.nativeElement.style.backgroundColor = color;
+    }
+}</code></pre>
+						<aside class="notes">
+							<ul>
+								<li>1 application dans le DOM = 1 instance de la classe</li>
+								<li>Propreté : orienté POO : attribut et méthodes</li>
+							</ul>
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Et l'avenir</h2>
+						TODO les versions régulières
 					</section>
 				</section>
 				<section>
