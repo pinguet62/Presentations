@@ -1,17 +1,17 @@
 <html>
 	<head>
 		<title>Angular</title>
-		<link rel="icon" type="image/svg+xml" href="img/Angular.svg" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/reveal.css">
+		<link rel="icon" type="image/svg+xml" href="img/Angular.svg">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/reveal.css">
 		<link id="theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/black.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/css/zenburn.css">
+		<link rel="stylesheet" href="styles.css">
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
 				<section>
-					<h1>Angular<h1>
+					<h1>Angular</h1>
 					<img data-src="img/Angular.svg" height="50%">
 					<footer>
 						<a href="https://github.com/pinguet62/Angular2-Presentation">
@@ -130,9 +130,9 @@
 							<li>Plus complet</li>
 						</ul>
 						<aside class="notes">
+							AngularJS :
 							<ul>
-								AngularJS
-								<li>où placer le controlleur</li>
+								<li>où placer le contrôleur</li>
 								<li>injection de dépendance</li>
 								<li>callback</li>
 							</ul>
@@ -437,22 +437,14 @@ import {Observable} from "rxjs";</code></pre>
 					<ul>
 						<li>Service</li>
 						<li>Pipe</li>
-						<li>Directives</li>
+						<li>Directive</li>
 						<li>Component</li>
 					</ul>
 					<aside class="notes">
 						<ul>
 							<li>4 grandes notions</li>
 							<li>Reprises d'AngularJS</li>
-							<li>
-								<ol>
-									TODO move to section
-									<li>modification du DOM</li>
-									<li>directive + template</li>
-									<li>transformateur de données</li>
-								</ol>
-							</li>
-							<li>Présentés par la suite</li>
+							<li>Présentés 1 à 1 par la suite</li>
 						</ul>
 					</aside>
 				</section>
@@ -461,7 +453,7 @@ import {Observable} from "rxjs";</code></pre>
 						<h2>Les services</h2>
 						<ul class="fragment">
 							<li>
-								Fournisseur de fonctionnalités</li>
+								Fournisseur de fonctionnalités :
 								<ul>
 									<li>Code métier</li>
 									<li>Appel de webservice</li>
@@ -470,21 +462,23 @@ import {Observable} from "rxjs";</code></pre>
 							<li>Découpage vue/service</li>
 							<li>Utilisé par les composants finaux</li>
 						</ul>
-					<aside class="notes">
-						<ul>
-							<li>
-								Exemple :
-								<ul>
-									<li>service <code>myService</code></li>
-									<li>méthode <code>doSomething(arg)</code></li>
-									<li>dépendance à <code>otherService</code></li>
-								</ul>
-						</ul>
-					</aside>
+						<aside class="notes">
+							<ul>
+								<li>1er type de module</li>
+								<li>
+									Exemple :
+									<ul>
+										<li>service <code>myService</code></li>
+										<li>méthode <code>doSomething(arg)</code></li>
+										<li>dépendance à <code>otherService</code></li>
+									</ul>
+								</li>
+							</ul>
+						</aside>
 					</section>
 					<section>
 						<h2>AngularJS...</h2>
-						<p class="fragment">Service vs Factory vs Provider</p>
+						<p class="fragment"><i>Service</i> vs <i>Factory</i> vs <i>Provider</i></p>
 						<pre class="fragment"><code class="typescript">angular.module('foo')
        .service('myService', ['otherService', function(otherService) {
            this.doSomething = function (arg) { /*...*/ }
@@ -503,12 +497,15 @@ import {Observable} from "rxjs";</code></pre>
        }]);</code></pre>
 						<aside class="notes">
 							<ul>
-								<li>3 types</li>
-								<ol>
-									<li>Service : propriétés = fonctions</li>
-									<li>Factory : retourner un objet où les propriétés sont des fonctions</li>
-									<li>Provider : propriété <code>$get</code>, de type fonction, retournant l'instance de l'objet</li>
-								</ol>
+								<li>
+									3 types :
+									<ol>
+										<li>Service : propriétés = fonctions</li>
+										<li>Factory : retourner un objet où les propriétés sont des fonctions</li>
+										<li>Provider : propriété <code>$get</code>, de type fonction, retournant l'instance de l'objet</li>
+									</ol>
+								</li>
+								<li>Injection de dépendance : tableau & argument du callback</li>
 							</ul>
 						</aside>
 					</section>
@@ -539,6 +536,7 @@ class MyService {
 						<aside class="notes">
 							<ul>
 								<li>On ne peut pas faire plus simple</li>
+								<li>Injection de dépendance : constructeur</li>
 							</ul>
 						</aside>
 					</section>
@@ -550,13 +548,17 @@ class MyService {
 						<pre class="fragment"><code class="html"><span>{{'toto' | upper}}</span></code></pre>
 						<aside class="notes">
 							<ul>
+								<li>2nd type de module</li>
 								<li>Cf. Linux</li>
+								<li>Utilisation dans le DOM</li>
+								<li>Exemple : <code>upper</code></li>
+								<li>Databinding : vu après</li>
 							</ul>
 						</aside>
 					</section>
 					<section>
 						<h3>AngularJS...</h3>
-						<p class="fragment">Nommé "filter"</p>
+						<p class="fragment">Nommé "filtre"</p>
 						<pre class="fragment"><code class="typescript">angular.module('foo', [])
        .filter('upper', function() {
            return function(value, arg1, arg2) {
@@ -568,7 +570,7 @@ class MyService {
 						<h3>Angular !</h3>
 						<ul style="width:100%">
 							<li class="fragment">
-								Interface : POO & polymorphisme
+								POO : interface & polymorphisme
 								<pre><code class="typescript">interface PipeTransform {
 	transform(value: any, ...args: any[]): any;
 }</code></pre>
@@ -585,6 +587,17 @@ class UpperPipe implements PipeTransform {
 }</code></pre>
 							</li>
 						</ul>
+						<aside class="notes">
+							<ul>
+								<li>
+									Annotation <code>@Pipe</code> :
+									<ul>
+										<li>Metadata TypeScript</li>
+										<li><code>name</code> : nom</li>
+									</ul>
+								</li>
+							</ul>
+						</aside>
 					</section>
 				</section>
 				<section>
@@ -594,8 +607,11 @@ class UpperPipe implements PipeTransform {
 							<li>Attribut personnalisé</li>
 							<li>Modifier le DOM</li>
 						</ul>
+						<pre class="fragment"><code class="html"><p flashing>I'm flashing...</p></code></pre>
+						<img class="fragment" data-src="img/directive-sample.gif" height="7.5%">
 						<aside class="notes">
 							<ul>
+								<li>3ème type de module</li>
 								<li>Modifier le DOM : comportement ou apparence</li>
 								<li>Exemple : clignoter un élément (CSS <code>backgroung-color</code>)</li>
 							</ul>
@@ -622,9 +638,13 @@ class UpperPipe implements PipeTransform {
        });</code></pre>
 						<aside class="notes">
 							<ul>
-								<li><code>function</code> dans tous les sens</li>
-								<li><code>restrict</code> : où appliquer la directive</li>
-								<li><code>link</code> : lié au cycle de vie</li>
+								<li>
+									Retourne : objet avec propriétés définies par AngularJS
+									<ul>
+										<li><code>restrict</code> : où appliquer la directive</li>
+										<li><code>link</code> : lié au cycle de vie</li>
+									</ul>
+								</li>
 							</ul>
 						</aside>
 					</section>
@@ -649,11 +669,13 @@ export class FlashingDirective {
 						<aside class="notes">
 							<ul>
 								<li>Toujours avec des classes</li>
-								<li>Annotation <code>@Directive</code>:</li>
+								<li>
+									Annotation <code>@Directive</code> :
 									<ul>
 										<li>Metadata TypeScript</li>
 										<li><code>selector</code> : sélecteur CSS</li>
 									</ul>
+								</li>
 								<li><code>constructor</code> : injection</li>
 								<li>Propreté : équivalent "stricte" d'AngularJS</li>
 							</ul>
@@ -661,7 +683,7 @@ export class FlashingDirective {
 					</section>
 					<section>
 						<h3>Angular !!!</h3>
-						<pre class="fragment"><code class="typescript">import { Directive, ElementRef } from '@angular/core';
+						<pre class="fragment"><code height="120%" class="typescript">import { Directive, ElementRef } from '@angular/core';
 
 @Directive({ selector: '[flashing]' })
 export class FlashingDirective {
@@ -686,6 +708,7 @@ export class FlashingDirective {
 }</code></pre>
 						<aside class="notes">
 							<ul>
+								<li>La POO, la vraie</li>
 								<li>1 application dans le DOM = 1 instance de la classe</li>
 								<li>Propreté : orienté POO : attribut et méthodes</li>
 							</ul>
@@ -694,13 +717,17 @@ export class FlashingDirective {
 				</section>
 				<section>
 					<section>
-						<h2>Et l'avenir</h2>
-						TODO les versions régulières
-					</section>
-				</section>
-				<section>
-					<section>
 						<h2>Les composants</h2>
+						<ul class="fragment">
+							<li>Directive + Template</li>
+							<li>Web component</li>
+						</ul>
+						<pre class="fragment"><code class="html"><say-hello></say-hello></code></pre>
+						<aside class="notes">
+							<ul>
+								<li>Template = vue HTML</li>
+							</ul>
+						</aside>
 					</section>
 					<section>
 						<h3>En bref</h3>
@@ -718,10 +745,22 @@ class HelloComponent {
 							<li><code>template</code> : vue</li>
 						</ul>
 						<pre><code class="html"><say-hello></say-hello></code></pre>
+						<aside class="notes">
+							<ul>
+								<li>Toujours avec des classes</li>
+								<li>
+									Annotation <code>@Component</code> :
+									<ul>
+										<li>Metadata TypeScript</li>
+										<li><code>selector</code> : nom du tag</li>
+									</ul>
+								</li>
+							</ul>
+						</aside>
 					</section>
 					<section>
 						<h3>Et en JavaScript ?</h3>
-						<pre><code class="typescript">(function(app) {
+						<pre class="fragment"><code class="typescript">(function(app) {
 	app.AppComponent = ng.core
 		.Component({
 			selector: 'say-hello',
@@ -734,39 +773,69 @@ class HelloComponent {
 					</section>
 					<section>
 						<h3>Databinding</h3>
-						<ul>
-							<li>Lien vue-contrôleur</li>
+						<ul class="fragment">
+							<li>Lien vue ↔ contrôleur</li>
 							<li>AngularJS : n'est plus automatiquement bi-directionnel</li>
+							<li>
+								Syntaxe :
+								<ul style="font-size:75%">
+									<li><code>{{expression}}</code></li>
+									<li><code>&lt;comp [attr]="expression"&gt;</code></li>
+									<li><code>&lt;comp (attr)="handler"&gt;</code></li>
+									<li><code>&lt;comp [(attr)]="property"&gt;</code></li>
+								</ul>
+							</li>
 						</ul>
+						<aside class="notes">
+							<ul>
+								<li>Syntaxe plus explicite</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h3>Databinding</h3>
 						<pre><code class="typescript">@Component({
-	selector: 'sample-binding',
-	template: `
-		<input [value]="name">
-		<span>{{count}}</span>
-		<button (click)="handler()">+</button>
-		<input type="number" [(ngModel)]="count">`
+    selector: 'my-app',
+    template: `<input [value]="name">
+               <span>{{count}}</span>
+               <button (click)="handler()">+</button>
+               <input type="number" [(ngModel)]="count">`
 })
-export class TemplateComponent {
+export class AppComponent {
 	name: string = 'Julien';
 	count: number = 42;
 	handler(): void {
 		this.count ++;
 	}
 }</code></pre>
+						<img data-src="img/binding.gif">
 					</section>
 				</section>
 				<section>
 					<section>
 						<h2>Penser "réutilisable"</h2>
+						<aside class="notes">
+							<ul>
+								<li>Chose importante</li>
+								<li>Objectif des web-components</li>
+								<li>Limites d'AngularJS</li>
+							</ul>
+						</aside>
 					</section>
 					<section>
 						<h3>Hiérarchie du DOM</h3>
 						<p>Pattern composite</p>
 						<img data-src="img/DOM-hierarchy.png">
+						<aside class="notes">
+							<ul>
+								<li>Arborescence</li>
+								<li>Pattern composite : un <code>&lt;div&gt;</code> peut contenir d'autres <code>&lt;div&gt;</code> et tags HTML</li>
+							</ul>
+						</aside>
 					</section>
 					<section>
 						<h3>Exemple de la racine de l'application</h3>
-						<pre><code class="typescript">@Component({
+						<pre class="fragment"><code class="typescript">@Component({
 	selector: 'my-app',
 	template: `
 		<my-menu></my-menu>
@@ -782,7 +851,7 @@ class AppComponent {}
 		<my-footer></my-footer>`
 })
 class ContentComponent {}</code></pre>
-						<pre><code class="html"><my-app>
+						<pre class="fragment"><code class="html"><my-app>
 	<my-menu></my-menu>
 	<my-content>
 		<my-header></my-header>
@@ -792,187 +861,84 @@ class ContentComponent {}</code></pre>
 </my-app></code></pre>
 					</section>
 					<section>
-						<h3>Orienté composant</h3>
-						<img data-src="img/component.png">
+						<h3>Programmation orientée composant</h3>
+						<img class="fragment" data-src="img/component.png">
 						<ul>
-							<li>
-								100% indépendant
+							<li class="fragment">
+								Paramètres
 								<ul>
-									<li>Style</li>
-									<li>Contrôleur : modèle & methods</li>
+									<li>
+										Entrée
+										<ul>
+											<li>Valeur</li>
+											<li>Composants fils</li>
+										</ul>
+									</li>
+									<li>Sortie : événement</li>
 								</ul>
 							</li>
-							<li>
-								Entrée
+							<li class="fragment">
+								100% indépendant / isolé
 								<ul>
-									<li>Valeur</li>
-									<li>Composants fils</li>
+									<li>Style CSS</li>
+									<li>Contrôleur : propriétés, methodes</li>
 								</ul>
 							</li>
-							<li>Sortie : événement</li>
 						</ul>
-					</section>
-				</section>
-				<section>
-					<section>
-						<h2>Les paramètres</h2>
+						<aside class="notes">
+							<ul>
+								<li>
+									Indépendance : AngularJS :
+									<ul>
+										<li>n'utiliser qu'1 contrôleur</li>
+										<li>tout mettre dans <code>$scope</code></li>
+									</ul>
+								</li>
+							</ul>
+						</aside>
 					</section>
 					<section>
 						<h3>La communiation</h3>
-						<img data-src="img/component-communication.png">
-						<ul>
-							<li>
-								2 sens :
-								<ul>
-									<li>Sous-composants : valeur</li>
-									<li>Composant parent : événement</li>
-								</ul>
-							</li>
-						</ul>
-					</section>
-					<section>
-						<h3>L'implémentation</h3>
-						<p>TypeScript : annotations</p>
-						<ul>
-							<li>
-								Entrée :
-								<ul>
-									<li>Attribut : <code>@Input()</code></li>
-									<li>Composants fils : <code>@ContentChild()</code></li>
-								</ul>
-							<li>Sortie : <code>@Output()</code></li>
-						</ul>
+						<img class="fragment" data-src="img/component-communication.png" height="70%">
 					</section>
 				</section>
 				<section>
-					<section>
-						<h2>Exemple: le tableau <code>&lt;table&gt;</code></h2>
-					</section>
-					<section>
-						<p>Les valeurs à afficher</p>
-						<pre><code class="typescript">interface Car {
-	id: number;
-	name: string;
-	brand: string;
-}
-
-let cars: Car[] = [
-	{ id: 1, name: 'Golf GTI', brand: 'Volkswagen' },
-	{ id: 2, name: 'Décapotable rouge', brand: 'BMW' },
-	{ id: 3, name: 'Matiz', brand: 'Chevrolet' }
-];</code></pre>
-					</section>
-					<section>
-						<p>Le besoin</p>
-						<pre><code class="html"><p62-table [values]="cars" (selected)="onRowSelected($event)">
-	<p62-column title="Code" field="id"></p62-column>
-	<p62-column title="Designation" field="name"></p62-column>
-	<p62-column title="Brand" field="brand"></p62-column>
-</p62-table></code></pre>
-						<pre><code class="typescript">@Component({
-	selector: 'p62-table-sample',
-	template: `...`
-})
-export class SampleTableComponent {
-	cars: Car[];
-
-	onRowSelected(value: Car): void {
-		alert(JSON.stringify(value));
-	}
-}</code></pre>
-					</section>
-					<section>
-						<p>L'implémentation</p>
-						<pre><code class="html">import { Component, Input, Output, EventEmitter, ContentChildren, QueryList } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-@Component({
-	selector: 'p62-column',
-	template: ``
-})
-export class ColumnComponent {
-	@Input() title: string;
-	@Input() field: string;
-}
-
-@Component({
-	selector: 'p62-table',
-	template: `
-		<table>
-			<thead>
-				<tr>
-					<th *ngFor="let column of columns">{{column.title}}</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr *ngFor="let value of values">
-					<td *ngFor="let column of columns" (click)="emitSelection(value)">{{value[column.field]}}</td>
-				</tr>
-			</tbody>
-		</table>`,
-	styles: [ `
-		table, th, td { border: 1px solid black; }
-		thead { font-weight: bold; }`
-	]
-})
-export class TableComponent {
-	@Input() values: any[];
-	@ContentChildren(ColumnComponent) columns: QueryList<ColumnComponent>;
-	@Output() selected: EventEmitter<any> = new EventEmitter<any>();
-
-	emitSelection(value: any): void {
-		this.selected.emit(value);
-	}
-}</code></pre>
-					</section>
+					<h3>Les paramètres ?</h3>
 				</section>
 				<section>
-					<h2>Les directive</h2>
-					<ul>
-						<li>Manipulation de DOM</li>
-						<li>
-							2 types
-							<ul>
-								<li>Structurelle : <code>&lt;template&gt;</code></li>
-								<li>Attribut : <code>&lt;foo myDir /&gt;</code></li>
-							</ul>
-						</li>
-					</ul>
+					<h2>Les tests ?</h2>
 				</section>
 				<section>
-					<h2>Programmation réactive</h2>
-					<ul>
-						<li>Pattern observateur</li>
-						<li>Promise : natif JavaScript & ECMAScript</li>
-						<li>ReactiveX : RxJS</li>
-						<li>
-							Objet <code>Observable&lt;&gt;</code>
-							<ul>
-								<li>Multi-event</li>
-								<li>Stream : <i>map</i>/<i>filter</i>/<i>reduce</i></li>
-							</ul>
-						</li>
-						<li>
-							Exemples :
-							<ul>
-								<li><code>@Output()</code>: <code>EventEmitter&lt;&gt; extends Observable&lt;&gt;</code></li>
-								<li>Webservices</li>
-							</ul>
-						</li>
-					</ul>
+					<section>
+						<h2>Et l'avenir</h2>
+						TODO les versions régulières
+					</section>
 				</section>
 				<section>
 					<h2>Inconvénients</h2>
 					<ul>
-						<li>
+						<li class="fragment">
 							Setup du projet
 							<ul>
 								<li>QuickStart</li>
 								<li>CLI</li>
 							</ul>
 						</li>
-						<li>Coupure avec AngularJS</li>
+						<li class="fragment">Coupure avec AngularJS</li>
 					</ul>
+					<aside class="notes">
+						<ul>
+							<li>
+								Setup : héritage du web
+								<ul>
+									<li>NPM</li>
+									<li>SystemJS</li>
+									<li><code>index.html</code></li>
+								</ul>
+							</li>
+							<li>Coupure : repartir sur de bonnes bases</li>
+						</ul>
+					</aside>
 				</section>
 				<section>
 					<h2>Migration de AngularJS</h2>
@@ -1032,6 +998,7 @@ export class TableComponent {
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/js/reveal.js"></script>
 		<script>
 			Reveal.initialize({
+				transition: 'convex',
 				dependencies: [
 					{ src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
 					{ src: 'https://rawgit.com/hakimel/reveal.js/master/plugin/notes/notes.js', async: true } // notes: local workaround: { src: 'plugin/notes/notes.js', async: true }
