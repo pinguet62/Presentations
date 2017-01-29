@@ -29,45 +29,82 @@
 					</aside>
 				</section>
 				<section>
-					<h2>Présentation (très) rapide</h2>
-					<ul class="fragment" style="width:100%">
-						<li>Philosophie d'AngularJS conservée</li>
-						<li>Framework MVC</li>
-						<li>
-							Enrichissement du DOM
-							<pre><code class="html"><input superman [(ngModel)]="attr">
-<custom-tag></custom-tag>
-<ul><li *ngFor="let it of list">{{it}}</li></ul></code></pre>
-						</li>
+					<h2>Objectifs de cette présentation</h2>
+					<ul class="fragment">
+						<li><s>Formation</s></li>
+						<li><small>AngularJS</small> &lt;&lt; Angular</li>
+						<li>Back-dev' <img class="emoji" src="http://hassankhan.me/emojify.js/images/emoji/heart.png"></li>
 					</ul>
 					<aside class="notes">
 						<ul>
-							<li>Philosophie : directives, services</li>
+							<li>Pas une formation</li>
+							<li>
+								Montrer aux connaisseurs d'AngularJS que :
+								<ul>
+									<li>AngularJS has-been</li>
+									<li>Angular est l'avenir</li>
+								</ul>
+							</li>
+							<li>
+								Développeurs Back-end :
+								<ul>
+									<li>développer la curiosité</li>
+									<li>faire aimer le front</li>
+								</ul>
+							</li>
 						</ul>
 					</aside>
 				</section>
 				<section>
 					<section>
-						<h2>Ambitions</h2>
-						<aside class="notes">
-							<ul>
-								<li>Pourquoi une 2nd version ?</li>
-								<li>Pourquoi tout changer ?</li>
-							</ul>
-						</aside>
+						<h2>Résumé (très) rapide</h2>
+						<ul class="fragment" style="width:100%">
+							<li>Framework MVC</li>
+							<li>
+								Extension du HTML
+								<pre><code class="html"><input [(ngModel)]="attr" superman>
+<ul>
+    <li *ngFor="let it of list"> {{it}} </li>
+</ul>
+<custom-tag></custom-tag></code></pre>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Son cousin AngularJS</h3>
+						<ul class="fragment">
+							Philosophie d'AngularJS conservée :
+							<li>directives</li>
+							<li>services</li>
+							<li>filtre (pipe)</li>
+							<li>modules</li>
+							<li>...</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Ambitions d'Angular</h2>
+					</section>
+					<section data-background-image="https://media.giphy.com/media/26BRq84rhISRcFVUQ/giphy.gif">
+						<q>Pourquoi "tout" changer ?</q>
 					</section>
 					<section>
 						<h3>Performance</h3>
-						<ul class="fragment">
-							<li><i>Render</i> : 2,5 fois plus rapide au démarrage</li>
-							<li><i>Rerender</i> : 4,2 fois plus rapide lors de l'utilisation</li>
-							<li><i>Permanent</i> : 5 fois plus rapide tout le temps</li>
-							<li><i>Web workers</i> : 2 fois plus rapides</li>
-						</ul>
+						<p class="fragment">
+							<i>Par rapport à AngularJS</i>
+							<ul class="fragment">
+								<li><i>Render</i> : 2,5 fois plus rapide au démarrage</li>
+								<li><i>Rerender</i> : 4,2 fois plus rapide lors de l'utilisation</li>
+								<li><i>Permanent</i> : 5 fois plus rapide tout le temps</li>
+								<li><i>Web workers</i> : 2 fois plus rapides</li>
+							</ul>
+						</p>
 						<aside class="notes">
 							<ul>
 								<li>AngularJS : grosses application lentes</li>
 								<li>Date : version beta</li>
+								<li>Parmi tous les framework web : 1er</li>
 							</ul>
 						</aside>
 					</section>
