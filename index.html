@@ -1038,7 +1038,7 @@ class ContentComponent {}</code></pre>
 				transition: 'convex',
 				dependencies: [
 					{ src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'https://rawgit.com/hakimel/reveal.js/master/plugin/notes/notes.js', async: true } // notes: local workaround: { src: 'plugin/notes/notes.js', async: true }
+					{ src: (/*workaround for <iframe> & local file*/ window.location.protocol === 'file:' ? 'plugin/notes/notes.js' : 'https://rawgit.com/hakimel/reveal.js/master/plugin/notes/notes.js'), async: true }
 				]
 			});
 		</script>
