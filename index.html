@@ -957,7 +957,7 @@ class AppComponent {
 				</section>
 				<section>
 					<section>
-						<h2>Penser "réutilisable"</h2>
+						<h2>Nouvelle façon de penser</h2>
 						<aside class="notes">
 							<ul>
 								<li>Chose importante</li>
@@ -1072,28 +1072,17 @@ class ContentComponent {}</code></pre>
 					</aside>
 				</section>
 				<section>
-					<h2>Migration de AngularJS</h2>
-					<ul>
-						<li>Possible</li>
-						<li>Module <code>@angular/upgrade</code></li>
-						<li>Propre ? Facile ?</li>
-						<li>
-							Facilitations :
-							<ul>
-								<li>Approche composant</li>
-								<li>TypeScript</li>
-								<li>Module loader (SystemJS, Webpack)</li>
-								<li>
-									Adapteurs :
-									<ul>
-										<li><code>ngForward</code> : exécuter du code Angular dans une application AngularJS (communautaire)
-										<li><code>ngUpgrade</code> : coexister les 2 frameworks (Google)</li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-						<li>Coupure avec AngularJS</li>
-					</ul>
+					<h2>Live codons !</h2>
+					<pre><code class="typescript">[
+    { id: 1, name: 'Golf GTI', brand: 'Volkswagen' },
+    { id: 2, name: 'Décapotable rouge', brand: 'BMW' },
+    { id: 3, name: '208', brand: 'Peugeot' }
+]</code></pre>
+					<pre><code class="html"><p62-table [values]="cars">
+    <p62-column title="Code" field="id"></p62-column>
+    <p62-column title="Designation" field="name"></p62-column>
+    <p62-column title="Brand" field="brand"></p62-column>
+</p62-table></code></pre>
 				</section>
 				<section id="config">
 					<h2>Config</h2>
