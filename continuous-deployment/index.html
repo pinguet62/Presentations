@@ -1,0 +1,613 @@
+<html>
+<head>
+    <title>Continuous Deployment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/reveal.css">
+    <link id="theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/css/zenburn.css">
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h1>Continuous Deployment</h1>
+
+            <img data-src="images/continuous delivery.png" height="30%">
+            <footer>
+                <a href="https://github.com/pinguet62">
+                    <img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" height="50" style="border: none;"/>
+                </a>
+                <a href="http://creativecommons.org/licenses/by-nc-sa/4.0">
+                    <img src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png" height="25" style="border: none;"/>
+                </a>
+                <a style="font-size:medium" href="http://lab.hakim.se/reveal-js">Reveal.js</a>
+            </footer>
+        </section>
+        <section>
+            <section>
+                <h2>Avant de commencer</h2>
+            </section>
+            <section>
+                <h3>Bonne pratique</h3>
+                <q>Qu'est-ce qu'une bonne pratique ?</q>
+                <p>Recommandation</p>
+                <p>Validée dans la <b>majorité</b> des situations</p>
+                <p>Doit pouvoir être <b>remises en cause</b></p>
+            </section>
+            <section>
+                <h3>Choix de la méthodologie</h3>
+                <p>Dépend du contexte</p>
+                <p>Pouvoir être changé</p>
+                <p>Oser essayer</p>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Dépend du contexte :</u> taille d'équipe, technologie, client, compétences</li>
+                        <li><u>Pouvoir être changé :</u> à tout moment</li>
+                    </ul>
+                </aside>
+            </section>
+            <section data-background-image="https://i.giphy.com/3o85xnoIXebk3xYx4Q.gif">
+                <p><q>« On a toujours fait ça comme ça ! »</q></p>
+                <p><q>« Tout le monde fait comme ça ! »</q></p>
+                <p><q>« Peut-être qu'un jour... »</q></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Rétrospective</h2>
+            </section>
+            <section data-background-image="http://img.gawkerassets.com/img/18wx3j1de4ye5gif/ku-bigpic.gif">
+                <h3>Mise en production</h3>
+            </section>
+            <section>
+                <h3>Mise en production</h3>
+                <p>Peur</p>
+                <p>Peu fréquente</p>
+                <p>Erreurs manuelles</p>
+                <p>Personnes tiers</p>
+                <p>Défi : <q>Combien de temps pour changer un libellé ?</q></p>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Personnes tiers :</u> étranger, autre équipe</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Méthode agile</h3>
+                <img src="http://www.agilenutshell.com/assets/how-is-agile-different/continuous-activities.png"/>
+                <p style="font-size: 35%;">http://www.agilenutshell.com/agile_vs_waterfall</p>
+            </section>
+            <section>
+                <h3>Méthode agile</h3>
+                <p>Cible : build</p>
+                <p>Objectif : feedback régulier</p>
+                <p>Problème : 1 seul déploiement</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Le déploiement continu</h2>
+            </section>
+            <section>
+                <h3>Définition</h3>
+                <p>Martin Fowler : <q>« Continuous Delivery is a software development <u>discipline</u> where you build software in such a <u>way</u> that the
+                    software can be released to production at <u>any time</u>. »</q></p>
+            </section>
+            <section>
+                <h3>Continuous ...</h3>
+                <img src="http://blogs.bmc.com/wp-content/uploads/2017/06/ci-vs-cd-devops-difference.jpg"/>
+                <p style="font-size: 35%;">http://www.bmc.com/blogs/continuous-delivery-continuous-deployment-continuous-integration-whats-difference</p>
+                <aside class="notes">
+                    <ul>
+                        <li>Taille d'équipe</li>
+                        <li>Technologie</li>
+                        <li>Client</li>
+                        <li>Compétence des développeurs</li>
+                        <li>...</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Objectifs &amp; Gains</h3>
+                <p>Feedback régulier</p>
+                <p>Mise en production sécurisée</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Pourquoi<br>cette présenttion ?</h2>
+                <p>Théorie VS Pratique</p>
+                <p>Réflexions sur les <i>pratiques habituelles</i></p>
+                <p>Découverte d'une nouvelle méthodologie</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Pour la suite...</h2>
+            </section>
+            <section>
+                <h3>Hypothèse</h3>
+                <p>Respect de la méthodologie</p>
+                <p>1 commit = 1 mise en production</p>
+            </section>
+            <section>
+                <h3>Type de projet</h3>
+                <p>
+                    Projet "normal"<br>
+                    <small>(env. 95% des cas ?)</small>
+                </p>
+                <p>
+                    Projet <i>final</i><br>
+                    <small><s>bibliothèque</s></small>
+                </p>
+                <p>Pas de version concurrentes</p>
+                <p>
+                    Projet multi-modules<br>
+                    <small>front / webservices</small>
+                </p>
+            </section>
+            <section>
+                <h3>Mon cas</h3>
+                <p>3 modules de webservice (10%+5%+5%)</p>
+                <p>1 module core (80%)</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Le pipeline</h2>
+            </section>
+            <section>
+                <h3>Minimal</h3>
+                <img src="images/workflow-target-min.png" height="50" style="border: none;"/>
+            </section>
+            <section>
+                <h3>L'idéal</h3>
+                <img src="images/workflow-target-full.png" height="50" style="border: none;"/>
+                <p>Tests<br>
+                    <small>unitaire, intégration, fonctionnel (Cerberus), performance, manuel, ...</small>
+                </p>
+                <p>Environnement<br>
+                    <small>DEV, QA, Preview, PROD, ...</small>
+                </p>
+                <p>Pipeline<br>
+                    <small>séquentiel/parallèle, fork/join, boutons, ...</small>
+                </p>
+            </section>
+            <section>
+                <!-- TODO review -->
+                <h3>Personnalisable</h3>
+                <p>
+                    100% automatisé !<br>
+                    <small><q>« Pas d'humain, pas de problème... »</q></small>
+                </p>
+                <p>Jenkins 2, Travis CI, ...</p>
+                <p>Maîtrise / Modulable</p>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Maîtrise / Modulable :</u> pas imposé (main aux dévelopeur)</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Gestionnaire de version (1/3)</h2>
+                <h3>Repository: mono VS multi</h3>
+            </section>
+            <section>
+                <h3>Exemple</h3>
+                <p>Modification impactant front + back</p>
+                <p><img src="images/multiRepository-dependency.png"/></p>
+            </section>
+            <section>
+                <h3>Problèmes</h3>
+                <p>Versionning de la dépendance ?</p>
+                <p>État entre les 2 commits ?</p>
+                <p>Pipeline : duplication ? <i>join</i> ? <i>hook</i> ?</p>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Versionning de la dépendance :</u> modification du core/back ⇒ montée de version des webservice/front</li>
+                        <li><u>État entre les 2 commits :</u> indisponibilité, instabilité (utilisation de SNAPSHOT)</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Retour au besoin</h3>
+                <p><q>Les projets sont-ils totalement indépendants ?</q></p>
+                <p><q>La dépendance va-t-elle être réutilisée ailleurs ?</q></p>
+                <p><q>Leur cycle de vie sont-ils différents ?</q></p>
+                <p>Comparer les coûts !</p>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Comparer les coûts :</u> évaluer les coûts du mono/multi-dépôt</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Solution</h3>
+                <p>
+                    Centraliser les modules dans le même dépôt<br>
+                    <small>back-office, front-office, documentation, tests, ...</small>
+                </p>
+            </section>
+            <section>
+                <h3>Avantage</h3>
+                <p>Maitrise des versions</p>
+                <p>
+                    Tests<br>
+                    <small>end-to-end</small>
+                </p>
+                <p>
+                    Déploiement<br>
+                    <small>Pipeline unique</small>
+                </p>
+            </section>
+            <section>
+                <h3>Info extrémiste...</h3>
+                <p>
+                    Mono-repository niveau entreprise !<br>
+                    <small>Facebook (Mercurial), Google (Perforce)</small>
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Gestionnaire de version (2/3)</h2>
+                <h3>branches &amp; merge...</h3>
+            </section>
+            <section>
+                <h3>Git flow</h3>
+                <img src="http://www.herveguetin.com/content/images/2016/04/agile_flow.png"/>
+            </section>
+            <section>
+                <h3>Git flow</h3>
+                <p>Release</p>
+                <img src="images/gitFlow-release.png"/>
+                <p>Hotfix : idem</p>
+            </section>
+            <section>
+                <h3>Problèmes</h3>
+                <p>
+                    Opérations manuelles<br>
+                    <small>perte de temps, risque</small>
+                </p>
+                <p>
+                    Merges<br>
+                    <small>conflit, risque</small>
+                </p>
+                <p>
+                    Historique incompréhensible<br>
+                    <small>historique non-linéaire</small>
+                </p>
+            </section>
+            <section>
+                <h3>Retour au besoin</h3>
+                <q>A quoi servent les branches ?</q>
+                <p>Plusieurs versions avec cycle de vie différents (bibliothèque)</p>
+                <q>En a-t-on réellement besoin ?</q>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Info :</u> pas de <code>release/XXX</code> + merge <code>develop</code> vers <code>master</code> = <i>git flow</i> inutile :
+                            travailler directement sur <code>master</code></li>
+                        <li><u>1 release par sprint :</u> cycle de vie du développement = celui de <code>release/XXX</code> = celui de <code>develop</code> et
+                            <code>master</code> donc inutile
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Solutions</h3>
+                <p>Ne pas utiliser de branche</p>
+                <p>Travailler sur le <code>master</code>/<code>trunk</code></p>
+                <aside class="notes">
+                    <ul>
+                        <li><u>pas de branche :</u> distant (local autorisé)</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Limites</h3>
+                <p>Très grosse modification</p>
+            </section>
+            <section>
+                <h3>Info extrémiste...</h3>
+                <p>
+                    Master/Trunk only niveau entreprise !<br>
+                    <small>Shazam</small>
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Gestionnaire de version (3/3)</h2>
+                <h3>La confiance</h3>
+            </section>
+            <section>
+                <h3>Problèmes</h3>
+                <p>Liberté de tout casser</p>
+                <p><i>Hypothèse de la vitre brisée</i></p>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Vécu :</u> commennter les tests</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Solutions</h3>
+                <p>Pull request (+ validation)</p>
+                <p>Revue de code</p>
+            </section>
+            <section>
+                <h3>Avantages</h3>
+                <p>Ceux des revues de code</p>
+                <p>Partage des connaissances</p>
+            </section>
+            <section data-background-image="https://i.giphy.com/8zYunr3Hg8XPq.gif">
+                <p><q>Un grand pouvoir implique de grandes responsabilités !</q></p>
+                <aside class="notes">
+                    <ul>
+                        <li><u>PROD cassée :</u> croissants !</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Les très grosses modifications</h2>
+            </section>
+            <section>
+                <h3>Problèmes</h3>
+                <p><code>Merge</code>/<code>Rebase</code> (des coéquipiers)</p>
+                <p>Mise en production</p>
+                <p>Revert</p>
+                <aside class="notes">
+                    <ul>
+                        <li><u><code>Merge</code>/<code>Rebase</code> :</u> lorsque l'on fusionne des grosses modifications entre-elles</li>
+                        <li><u>Mise en production :</u> retour aux travers passés (peur car trop gros)</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Solution</h3>
+                <p>Feature flipping / Feature Toggles</p>
+                <pre><code class="java">if (ff.isEnabled("SEND_EMAIL"))
+    mailSender.send("Hello world!", "gibbs@ncis.us")</code></pre>
+                <p>Activation définitive, en 2nd lieu</p>
+                <p>Administration</p>
+                <p><s>Gestion des droits</s></p>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Définition :</u> Martin Fowler: comme une alternative aux branches</li>
+                        <li>Fortement lié au déploiement continu</li>
+                        <li><u>Administration :</u> UI, BDD, ...</li>
+                        <li><u>Techniques :</u> static/dynamic, court/long terme, ...</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Vous le faites déjà</h3>
+                <p>Méthode agile : sous-tâches, incrémental/itératif</p>
+                <p>Suppression de table (BDD) : renommage</p>
+            </section>
+            <section>
+                <h3>Avantages</h3>
+                <p>Bascule dynamique</p>
+                <p>Revue de code continue</p>
+            </section>
+            <section>
+                <h3>Limites</h3>
+                <p>Avec parcimonie</p>
+                <p>Testing</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Le versionning</h2>
+            </section>
+            <section>
+                <h3>Exemple</h3>
+                <p>Java &amp; "Maven release"</p>
+            </section>
+            <section>
+                <h3>Maven release</h3>
+                <img src="images/maven-release.png"/>
+                <aside class="notes">
+                    <ul>
+                        <li>
+                            <u>Process :</u>
+                            <ol>
+                                <li>modification : normal</li>
+                                <li><code>mvn release:prepare</code> : version de production + tag</li>
+                                <li><code>mvn release:perform</code> : démarrage d'un nouveau "sprint"</li>
+                                <li><code>pull</code>/<code>update</code> : récupération (obligatoire avec <i>Maven release</i>)</li>
+                            </ol>
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Problèmes</h3>
+                <p>Historique incompréhensible</p>
+                <p>
+                    Nommage de la version ?<br>
+                    <small style="font-size: 40%; white-space: nowrap;"><code>&lt;majorversion [&gt; . &lt;minorversion [&gt; . &lt;incrementalversion ] ] [&gt;
+                        - &lt;buildnumber | qualifier ]&gt;</code></small>
+                </p>
+                <p><code>pull</code>/<code>update</code> inutile</p>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Si job CI :</u> concurrence car commit asynchrone</li>
+                        <li><u>REX :</u> nombreux commits + plusieurs heures</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Retour au besoin</h3>
+                <p><q>Pourquoi change-t-on de version ?</q></p>
+                <p><q>Pourquoi tague-t-on la version ?</q></p>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Changement de version :</u> ne pas impacter les versions précédantes, encore utilisées par d'autres</li>
+                        <li><u>Tag :</u> retrouver facilement le code correspondant à la version</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Solutions</h3>
+                <p>Sources : version constante</p>
+                <p>
+                    Packaging : facultatif<br>
+                    <small>
+                        incrémental, timestamp, révision gestion de versions, ...<br>
+                        fichier interne, suffix, ...
+                    </small>
+                </p>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Pas interdit :</u> ne pas doit pas impacter le développement</li>
+                        <li><u>Packaging :</u> générer during le build</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Info...</h3>
+                <p>Chrome, Firefox, IntelliJ, ...</p>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Logiciels en déploiement continue :</u> timestamp ou incrémental</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>La base de données</h2>
+            </section>
+            <section>
+                <h3>Problèmes</h3>
+                <p>Exécution manuelle</p>
+                <p>Versionning</p>
+                <p>Rollback</p>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Sondage :</u> script numéroté, exécution manuelle, avant déploiement</li>
+                        <li><u>Rollback :</u> doit être supporté car cela peut arriver sur l'application</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Solutions</h3>
+                <p>
+                    Liquibase<br>
+                    <small>versionning, multi-SGBC, intégration (Maven, Jenkins)</small>
+                </p>
+                <pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;databaseChangeLog&gt;
+    &lt;changeSet id=&quot;1&quot; author=&quot;pinguet62&quot;&gt;
+        &lt;createTable tableName=&quot;person&quot;&gt;
+            &lt;column name=&quot;id&quot; type=&quot;int&quot; autoIncrement=&quot;true&quot;&gt;
+                &lt;constraints primaryKey=&quot;true&quot; nullable=&quot;false&quot;/&gt;
+            &lt;/column&gt;
+            &lt;column name=&quot;name&quot; type=&quot;varchar(50)&quot;/&gt;
+        &lt;/createTable&gt;
+    &lt;/changeSet&gt;
+&lt;/databaseChangeLog&gt;</code></pre>
+                <p>Intégré au pipeline</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Le déploiement</h2>
+            </section>
+            <section>
+                <h3>Problèmes</h3>
+                <p>Indisponibilité</p>
+                <p>Base de données</p>
+                <aside class="notes">
+                    <ul>
+                        <li><u>REX :</u> pas parfaitement mis en place</li>
+                        <li><u>REX :</u> pas étudié</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Info...</h3>
+                <p>
+                    Auto-update<br>
+                    <small>webapp, Cordoba, Electron</small>
+                </p>
+            </section>
+        </section>
+        <section data-background-image="https://media.giphy.com/media/l2JhtthoG5ORJJQ5O/giphy.gif">
+            <h2>Question(s) ?</h2>
+        </section>
+        <section id="config">
+            <h2>Config</h2>
+            <ul>
+                <li>
+                    Transition :
+                    <a href="?transition=none#/config">None</a> -
+                    <a href="?transition=fade#/config">Fade</a> -
+                    <a href="?transition=slide#/config">Slide</a> -
+                    <a href="?transition=convex#/config">Convex</a> -
+                    <a href="?transition=concave#/config">Concave</a> -
+                    <a href="?transition=zoom#/config">Zoom</a>
+                </li>
+                <li>
+                    Thème :
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/black.css'); return false;">Black
+                        (default)</a> -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/white.css'); return false;">White</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/league.css'); return false;">League</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/sky.css'); return false;">Sky</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/beige.css'); return false;">Beige</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/simple.css'); return false;">Simple</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/serif.css'); return false;">Serif</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/blood.css'); return false;">Blood</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/night.css'); return false;">Night</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/moon.css'); return false;">Moon</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/solarized.css'); return false;">Solarized</a>
+                </li>
+            </ul>
+        </section>
+    </div>
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/js/head.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/js/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    transition: 'convex',
+    dependencies: [
+      {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/highlight/highlight.js',
+        async: true,
+        callback: function () { hljs.initHighlightingOnLoad() }
+      },
+      {
+        src: (/*workaround for <iframe> & local file*/ window.location.protocol === 'file:' ? 'plugin/notes/notes.js' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/notes/notes.js'),
+        async: true
+      }
+    ]
+  })
+</script>
+</body>
+</html>
