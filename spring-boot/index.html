@@ -1,77 +1,88 @@
 <html>
-	<head>
-		<title>Spring Boot</title>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/reveal.css">
-		<link id="theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/black.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/css/zenburn.css">
-		<style>
-			.reveal pre {
-				width: 100%;
-			}
-			.reveal pre code {
-				max-height: none;
-			}
-			.reveal small {
-				vertical-align: middle;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>
-					<h1>Spring Boot</h1>
-					
-					<img data-src="http://www.groupeafg.com/wp-content/uploads/2016/04/spring-boot-project-logo.png" height="30%">
-					<footer>
-						<a href="https://github.com/pinguet62">
-							<img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" height="50" style="border: none;" />
-						</a>
-						<a href="http://creativecommons.org/licenses/by-nc-sa/4.0">
-							<img src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png" height="25" style="border: none;" />
-						</a>
-						<a style="font-size:medium" href="http://lab.hakim.se/reveal-js">Reveal.js</a>
-					</footer>
-				</section>
-				<section>
-					<h2>Objectifs ... en 30min</h2>
-					<ul>
-						<li>Qu'est-ce que Spring ?</li>
-						<li>De Spring à Spring Boot</li>
-						<li>Comment ça marche ?</li>
-					</ul>
-						<aside class="notes">
-							<ul>
-								<li><u>Qu'est-ce ?</u> qui ne connaissent pas Spring | Java | du tout</li>
-								<li><u>Spring à Boot :</u> pourquoi est-ce qu'on en est arrivé là</li>
-								<li><u>Comment ?</u> comprendre l'intérieur et le refaire</li>
-							</ul>
-						</aside>
-				</section>
-				</section>
-				<section>
-					<section data-background-image="https://i.giphy.com/7srpeY4TZMrO8.gif">
-						<h2>Spring, en bref</h2>
-					</section>
-					<section>
-						<h3>Sur le papier...</h3>
-						<ul>
-							<li>"Concurrent" de Java EE</li>
-							<li>Inversion de contrôle (injection de dépendance), AOP, abstraction</li>
-							<li>Conteneur léger</li>
-							<li>Inspire Java EE</li>
-						</ul>
-						<aside class="notes">
-							<ul>
-								<li><u>"Concurrent" :</u> société / avance / projet parallèle</li>
-								<li><u>Conteneur léger :</u> <code>interface</code> facultative</li>
-								<li><u>Inspire Java EE :</u> Java EE 7 avec CDI et <code>@Inject</code></li>
-							</ul>
-						</aside>
-					</section>
-					<section>
-						<h3>En pratique...</h3>
-						<pre class="fragment"><code class="java">@Component
+<head>
+    <title>Spring Boot</title>
+    <link rel="icon" type="image/svg+xml" href="https://projects.spring.io/spring-boot/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/reveal.css">
+    <link id="theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/css/zenburn.css">
+    <style>
+        /* Override */
+        .reveal pre {
+            width: 100%;
+        }
+
+        .reveal pre code {
+            max-height: none;
+        }
+
+        .reveal small {
+            vertical-align: middle;
+        }
+
+        /* Custom */
+        .img-native {
+            border: none !important;
+            background: none !important;
+            box-shadow: none !important;
+            margin: 0 !important;
+        }
+    </style>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h1>Spring Boot</h1>
+            <img data-src="http://www.groupeafg.com/wp-content/uploads/2016/04/spring-boot-project-logo.png" height="50%">
+            <footer>
+                <a href="https://github.com/pinguet62/Presentations" style="display: inline-block; vertical-align: middle;">
+                    <img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" height="50" class="img-native"/>
+                </a>
+                <a href="https://www.apache.org/licenses/LICENSE-2.0" style="display: inline-block; vertical-align: middle;">
+                    <img src="https://www.apache.org/img/asf_logo.png" height="25" class="img-native"/>
+                </a>
+                <a style="font-size: medium; display: inline-block; vertical-align: middle;" href="http://lab.hakim.se/reveal-js">Reveal.js</a>
+            </footer>
+        </section>
+        <section>
+            <h2>Objectifs ... en 30min</h2>
+            <ul>
+                <li>Qu'est-ce que Spring ?</li>
+                <li>De Spring à Spring Boot</li>
+                <li>Comment ça marche ?</li>
+            </ul>
+            <aside class="notes">
+                <ul>
+                    <li><u>Qu'est-ce ?</u> qui ne connaissent pas Spring | Java | du tout</li>
+                    <li><u>Spring à Boot :</u> pourquoi est-ce qu'on en est arrivé là</li>
+                    <li><u>Comment ?</u> comprendre l'intérieur et le refaire</li>
+                </ul>
+            </aside>
+        </section>
+        </section>
+        <section>
+            <section data-background-image="https://i.giphy.com/7srpeY4TZMrO8.gif">
+                <h2>Spring, en bref</h2>
+            </section>
+            <section>
+                <h3>Sur le papier...</h3>
+                <ul>
+                    <li>"Concurrent" de Java EE</li>
+                    <li>Inversion de contrôle (injection de dépendance), AOP, abstraction</li>
+                    <li>Conteneur léger</li>
+                    <li>Inspire Java EE</li>
+                </ul>
+                <aside class="notes">
+                    <ul>
+                        <li><u>"Concurrent" :</u> société / avance / projet parallèle</li>
+                        <li><u>Conteneur léger :</u> <code>interface</code> facultative</li>
+                        <li><u>Inspire Java EE :</u> Java EE 7 avec CDI et <code>@Inject</code></li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>En pratique...</h3>
+                <pre class="fragment"><code class="java">@Component
 class MyDao {
 
 	void save(String value) {
@@ -79,39 +90,39 @@ class MyDao {
 	}
 
 }</code></pre>
-						<pre class="fragment"><code class="java">@Component
+                <pre class="fragment"><code class="java">@Component
 class MyService {
 
 	@Autowired
 	MyDao dao;
-	
+
 	void doSomething() {
 		dao.save("foo");
 	}
 
 }</code></pre>
-						<aside class="notes">
-							<ul>
-								<li><u>Programmation orientée composant :</u> composants intéragissant ensembles</li>
-								<li><u><code>@Component</code> :</u> définition d'un composant</li>
-								<li><u><code>@Autowired</code> :</u> injection d'un autre composant</li>
-								<li><u><code>Objectif</code> :</u> déclarer et utiliser des composants</li>
-							</ul>
-						</aside>
-					</section>
-				</section>
-				<section>
-					<section data-background-image="https://i.giphy.com/xkmQfH1TB0dLW.gif">
-						<h2>L'histoire de Spring</h2>
-						<aside class="notes">
-							<ul>
-								<li><u>Exemple :</u> connexion à une base de données</li>
-							</ul>
-						</aside>
-					</section>
-					<section>
-						<h3>[2003] Spring 1.0</h3>
-						<pre class="fragment" style="line-height:110%;"><code class="xml" style="width:120%; font-size:90%;">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+                <aside class="notes">
+                    <ul>
+                        <li><u>Programmation orientée composant :</u> composants intéragissant ensembles</li>
+                        <li><u><code>@Component</code> :</u> définition d'un composant</li>
+                        <li><u><code>@Autowired</code> :</u> injection d'un autre composant</li>
+                        <li><u><code>Objectif</code> :</u> déclarer et utiliser des composants</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section data-background-image="https://i.giphy.com/xkmQfH1TB0dLW.gif">
+                <h2>L'histoire de Spring</h2>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Exemple :</u> connexion à une base de données</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>[2003] Spring 1.0</h3>
+                <pre class="fragment" style="line-height:110%;"><code class="xml" style="width:120%; font-size:90%;">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;beans ...&gt;
 
 	&lt;bean id=&quot;dataSource&quot; class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;&gt;
@@ -138,17 +149,17 @@ class MyService {
 	&lt;/bean&gt;
 
 &lt;/beans&gt;</code></pre>
-						<aside class="notes">
-							<ul>
-								<li>Référencement du fichier XML <code>main(String[])</code> ou <code>web.xml</code></li>
-								<li>Classes Java avec comportement inconnu</li>
-								<li>Qui a envie de vomir ?</li>
-							</ul>
-						</aside>
-					</section>
-					<section>
-						<h3>[2007] Spring 2.5</h3>
-						<pre class="fragment" style="line-height:90%;"><code class="java" style="width:120%; font-size:90%;">@Configuration
+                <aside class="notes">
+                    <ul>
+                        <li>Référencement du fichier XML <code>main(String[])</code> ou <code>web.xml</code></li>
+                        <li>Classes Java avec comportement inconnu</li>
+                        <li>Qui a envie de vomir ?</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>[2007] Spring 2.5</h3>
+                <pre class="fragment" style="line-height:90%;"><code class="java" style="width:120%; font-size:90%;">@Configuration
 public class JpaDatabaseConfig {
 
 	@Bean
@@ -184,32 +195,32 @@ public class JpaDatabaseConfig {
 	}
 
 }</code></pre>
-						<aside class="notes">
-							<ul>
-								<li>Autres annotations : <code>@Component</code>, <code>@Service</code>, <code>@Transactional</code>, ...</li>
-								<li>Type safe : compilation (plutôt qu'à l'exécution)</li>
-								<li>Algorithmique : boucles/conditions, code Java</li>
-							</ul>
-						</aside>
-					</section>
-					<section>
-						<h3>[2014] - Spring Boot</h3>
-						<pre class="fragment"><code>spring.datasource.url=...</code></pre>
-					</section>
-				</section>
-				<section>
-					<section data-background-image="https://media.giphy.com/media/A9grgCQ0Dm012/giphy.gif">
-						<h2>Démonstration de puissance</h2>
-						<aside class="notes">
-							<ul>
-								<li><u>Question :</u> projet webservice from-scratch ? JAX-RS avec <code>web.xml</code> ?</li>
-							</ul>
-						</aside>
-					</section>
-					<section>
-						<h3>Webservice</h3>
-						<p>Maven</p>
-						<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+                <aside class="notes">
+                    <ul>
+                        <li>Autres annotations : <code>@Component</code>, <code>@Service</code>, <code>@Transactional</code>, ...</li>
+                        <li>Type safe : compilation (plutôt qu'à l'exécution)</li>
+                        <li>Algorithmique : boucles/conditions, code Java</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>[2014] - Spring Boot</h3>
+                <pre class="fragment"><code>spring.datasource.url=...</code></pre>
+            </section>
+        </section>
+        <section>
+            <section data-background-image="https://media.giphy.com/media/A9grgCQ0Dm012/giphy.gif">
+                <h2>Démonstration de puissance</h2>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Question :</u> projet webservice from-scratch ? JAX-RS avec <code>web.xml</code> ?</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Webservice</h3>
+                <p>Maven</p>
+                <pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;project&gt;
 	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
 
@@ -225,16 +236,16 @@ public class JpaDatabaseConfig {
 		&lt;/dependency&gt;
 	&lt;/dependencies&gt;
 &lt;/project&gt; </code></pre>
-						<aside class="notes">
-							<ul>
-								<li>Stricte minimum</li>
-							</ul>
-						</aside>
-					</section>
-					<section>
-						<h3>Webservice</h3>
-						<p>Java</p>
-						<pre><code class="java">@SpringBootApplication
+                <aside class="notes">
+                    <ul>
+                        <li>Stricte minimum</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Webservice</h3>
+                <p>Java</p>
+                <pre><code class="java">@SpringBootApplication
 @RestController
 public class MyController {
 
@@ -247,64 +258,65 @@ public class MyController {
         return "Hello Davidson!";
     }
 }</code></pre>
-						<aside class="notes">
-							<ul>
-								<li><u><code>SpringApplication</code> :</u> point d'entrée (évolution du <code>ClassPathXmlApplicationContext</code> non-bloquant)</li>
-								<li><u><code>@SpringBootApplication</code> :</u> <code>@EnableAutoConfiguration</code> + <code>@ComponentScan</code> : racine du projet</li>
-								<li>Annoncé par Tweet</li>
-							</ul>
-						</aside>
-					</section>
-					<section>
-						<h3>Webservice</h3>
-						<pre><code>$ curl localhost:8080/
+                <aside class="notes">
+                    <ul>
+                        <li><u><code>SpringApplication</code> :</u> point d'entrée (évolution du <code>ClassPathXmlApplicationContext</code> non-bloquant)</li>
+                        <li><u><code>@SpringBootApplication</code> :</u> <code>@EnableAutoConfiguration</code> + <code>@ComponentScan</code> : racine du projet
+                        </li>
+                        <li>Annoncé par Tweet</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Webservice</h3>
+                <pre><code>$ curl localhost:8080/
 Hello Davidson!</code></pre>
-					</section>
-					<section>
-						<h3>Mais encore ?</h3>
-						<ul>
-							<li>Mavent : POM parent</li>
-							<li>AOP, Cache, Mail (SMTP), i18n, Cloud, Batch, Security, LDAP, OAuth</li>
-							<li>ActiveMQ (JMS), RabbitMQ (AMQP)</li>
-							<li>Base de données
-								<ul>
-									<li>SQL : JDBC, JPA (Hibernate)</li>
-									<li>NoSQL : H2, Cassandra, Couchbase, Mongodb, Neo4j, Redis, Hazelcast, Elasticsearch, Solr, ...</li>
-								</ul>
-							</li>
-							<li>Webservice : REST &amp; SOAP</li>
-							<li>Social : Facebook, Twitter, LinkedIn, ...</li>
-							<li>Liquibase, Flyway</li>
-							<li>...</li>
-						</ul>
-						<aside class="notes">
-							<ul>
-								<li><u>Webservice :</u> plus commun</li>
-								<li>Liste <i>absolument pas</i> exhaustive</li>
-								<li><u>Activation :</u> Dépendance (classpath) / Ligne de configuration / Annotation d'activation</li>
-							</ul>
-						</aside>
-					</section>
-				</section>
-				<section>
-					<section data-background-image="https://i.redd.it/udm7v9jvhfby.gif">
-						<h2>Comment ça marche ? (1/2)</h2>
-						<code class="fragment">@Conditional</code>
-						<aside class="notes">
-							<ul>
-								<li><u>Objectif :</u> créer ses propres bibliothèques</li>
-							</ul>
-						</aside>
-					</section>
-					<section>
-						<h3><code>@Conditional</code></h3>
-						<q>Exemple</q>
-						<p>Code condionné par l'environnement d'exécution de l'application.</p>
-					</section>
-					<section>
-						<h3><code>@Conditional</code></h3>
-						<p>Solution 1 : le bon vieux <code>if/else</code>...</p>
-						<pre><code class="java">@Service
+            </section>
+            <section>
+                <h3>Mais encore ?</h3>
+                <ul>
+                    <li>Mavent : POM parent</li>
+                    <li>AOP, Cache, Mail (SMTP), i18n, Cloud, Batch, Security, LDAP, OAuth</li>
+                    <li>ActiveMQ (JMS), RabbitMQ (AMQP)</li>
+                    <li>Base de données
+                        <ul>
+                            <li>SQL : JDBC, JPA (Hibernate)</li>
+                            <li>NoSQL : H2, Cassandra, Couchbase, Mongodb, Neo4j, Redis, Hazelcast, Elasticsearch, Solr, ...</li>
+                        </ul>
+                    </li>
+                    <li>Webservice : REST &amp; SOAP</li>
+                    <li>Social : Facebook, Twitter, LinkedIn, ...</li>
+                    <li>Liquibase, Flyway</li>
+                    <li>...</li>
+                </ul>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Webservice :</u> plus commun</li>
+                        <li>Liste <i>absolument pas</i> exhaustive</li>
+                        <li><u>Activation :</u> Dépendance (classpath) / Ligne de configuration / Annotation d'activation</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section data-background-image="https://i.redd.it/udm7v9jvhfby.gif">
+                <h2>Comment ça marche ? (1/2)</h2>
+                <code class="fragment">@Conditional</code>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Objectif :</u> créer ses propres bibliothèques</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><code>@Conditional</code></h3>
+                <q>Exemple</q>
+                <p>Code condionné par l'environnement d'exécution de l'application.</p>
+            </section>
+            <section>
+                <h3><code>@Conditional</code></h3>
+                <p>Solution 1 : le bon vieux <code>if/else</code>...</p>
+                <pre><code class="java">@Service
 class MyService {
 
 	void doSomething() {
@@ -316,17 +328,17 @@ class MyService {
 	}
 
 }</code></pre>
-						<p class="fragment">Moche !!!</p>
-						<aside class="notes">
-							<ul>
-								<li><u>Problème :</u> redondance de code</li>
-							</ul>
-						</aside>
-					</section>
-					<section>
-						<h3><code>@Conditional</code></h3>
-						<p>Solution 2 : le polymorphisme</p>
-						<pre><code class="java">interface Script {
+                <p class="fragment">Moche !!!</p>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Problème :</u> redondance de code</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><code>@Conditional</code></h3>
+                <p>Solution 2 : le polymorphisme</p>
+                <pre><code class="java">interface Script {
 	void execute();
 }
 
@@ -343,19 +355,19 @@ class ProdScript implements Script {
 		System.out.println("In production");
 	}
 }</code></pre>
-						<aside class="notes">
-							<ul>
-								<li><u>Pattern :</u> stratégie</li>
-							</ul>
-						</aside>
-					</section>
-					<section>
-						<h3><code>@Conditional</code></h3>
-						<p>Solution 2 : le polymorphisme</p>
-						<pre><code class="java">@Service
+                <aside class="notes">
+                    <ul>
+                        <li><u>Pattern :</u> stratégie</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><code>@Conditional</code></h3>
+                <p>Solution 2 : le polymorphisme</p>
+                <pre><code class="java">@Service
 class MyService {
 	Script script;
-	
+
 	// Factory
 	MyService() {
 		String currentEnv = System.getProperty("environment");
@@ -364,72 +376,72 @@ class MyService {
 		else if (currentEnv.equals("PROD"))
 			script = new ProdScript();
 	}
-	
+
 	void doSomething() {
 		script.execute();
 	}
 }
 </code></pre>
-						<p class="fragment">Context Spring...</p>
-						<aside class="notes">
-							<ul>
-								<li>Factory si besoin</li>
-								<li><u>Execution :</u> plus propore</li>
-							</ul>
-						</aside>
-					</section>
-					<section>
-						<h3><code>@Conditional</code></h3>
-						<p>Solution : des <code>@Bean</code></p>
-						<pre><code class="java">@Component
+                <p class="fragment">Context Spring...</p>
+                <aside class="notes">
+                    <ul>
+                        <li>Factory si besoin</li>
+                        <li><u>Execution :</u> plus propore</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><code>@Conditional</code></h3>
+                <p>Solution : des <code>@Bean</code></p>
+                <pre><code class="java">@Component
 class DevScript implements Script { /*...*/ }
 
 @Component
 class ProdScript implements Script { /*...*/ }</code></pre>
-						<pre><code class="java">@Service
+                <pre><code class="java">@Service
 class MyService {
 	@Autowired
 	Script script;
-	
+
 	void doSomething() {
 		script.execute();
 	}
 }
 </code></pre>
-						<p class="fragment">Collision...</p>
-						<aside class="notes">
-							<ul>
-								<li><u>Colision :</u> les 2 ne doivent pas être enregistrés</li>
-								<li><u>Enregistrement :</u> ne respectant pas la condition ignorés</li>
-								<li><u>Utilisation :</u> transparent</li>
-							</ul>
-						</aside>
-					</section>
-					<section>
-						<h3><code>@Conditional</code></h3>
-						<pre><code class="java">@Conditional(MyCondition.class)
+                <p class="fragment">Collision...</p>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Colision :</u> les 2 ne doivent pas être enregistrés</li>
+                        <li><u>Enregistrement :</u> ne respectant pas la condition ignorés</li>
+                        <li><u>Utilisation :</u> transparent</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><code>@Conditional</code></h3>
+                <pre><code class="java">@Conditional(MyCondition.class)
 @Component
 class MyComponent {}</code></pre>
-						<pre><code class="java">class MyCondition implements Condition {
+                <pre><code class="java">class MyCondition implements Condition {
 	@Override
 	public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
 		return ...;
 	}
 }</code></pre>
-						<ul>
-							<li>Meta-annotation</li>
-							<li>Paramètres</li>
-						</ul>
-						<aside class="notes">
-							<ul>
-								<li><u>Meta-annotation :</u> annotation d'annotation</li>
-								<li><u>Utilisation :</u> transparent</li>
-							</ul>
-						</aside>
-					</section>
-					<section>
-						<h3><code>@Conditional</code></h3>
-						<pre><code class="java">class EnvCondition extends SpringBootCondition {
+                <ul>
+                    <li>Meta-annotation</li>
+                    <li>Paramètres</li>
+                </ul>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Meta-annotation :</u> annotation d'annotation</li>
+                        <li><u>Utilisation :</u> transparent</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><code>@Conditional</code></h3>
+                <pre><code class="java">class EnvCondition extends SpringBootCondition {
 	@Override
 	public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
 		Map&lt;String, Object&gt; attributes = metadata.getAnnotationAttributes(ConditionalOnEnv.class.getName());
@@ -439,70 +451,70 @@ class MyComponent {}</code></pre>
 		return new ConditionOutcome(matches, (String) null);
 	}
 }</code></pre>
-						<pre><code class="java">@Conditional(EnvCondition.class)
+                <pre><code class="java">@Conditional(EnvCondition.class)
 @interface ConditionalOnEnv {
 	String value();
 }</code></pre>
-					</section>
-					<section>
-						<h3><code>@Conditional</code></h3>
-						<pre><code class="java">@ConditionalOnEnv("DEV")
+            </section>
+            <section>
+                <h3><code>@Conditional</code></h3>
+                <pre><code class="java">@ConditionalOnEnv("DEV")
 @Component
 class DevScript implements Script { /*...*/ }
 
 @ConditionalOnEnv("PROD")
 @Component
 class ProdScript implements Script { /*...*/ }</code></pre>
-					</section>
-					<section>
-						<h3><code>@Conditional</code></h3>
-						<ul>
-							Spring Boot...
-							<li><code>@ConditionalOnMissingBean</code></li>
-							<li><code>@ConditionalOnClass</code></li>
-							<li><code>@ConditionalOnProperty</code></li>
-						</ul>
-						<aside class="notes">
-							<ul>
-								<li><u><code>@Conditional</code> :</u> Spring core, étendu par Spring Boot</li>
-								<li><u><code>@ConditionalOnMissingBean</code> :</u> créer les beans "par défaut" si non-custom</li>
-								<li><u><code>@ConditionalOnClass</code> :</u> présence de dépendance dans le <i>classpath</i></li>
-								<li><u><code>@ConditionalOnProperty</code> :</u> configuration (fichier ou autre)</li>
-							</ul>
-						</aside>
-					</section>
-				</section>
-				<section>
-					<section data-background-image="http://i.imgur.com/wfjCQuI.gif">
-						<h2>Comment ça marche ? (2/2)</h2>
-						<code class="fragment">SpringFactoriesLoader</code>
-					</section>
-					<section>
-						<h3><code>SpringFactoriesLoader</code></h3>
-							<div class="fragment">
-								<q>Situation</q>
-								<p>
-									Classe <code>MyConfig</code> qui fournie une (bon vieux) <code>Properties</code>
-									<pre><code class="java">Properties properties = new MyConfig().getProperties();
+            </section>
+            <section>
+                <h3><code>@Conditional</code></h3>
+                <ul>
+                    Spring Boot...
+                    <li><code>@ConditionalOnMissingBean</code></li>
+                    <li><code>@ConditionalOnClass</code></li>
+                    <li><code>@ConditionalOnProperty</code></li>
+                </ul>
+                <aside class="notes">
+                    <ul>
+                        <li><u><code>@Conditional</code> :</u> Spring core, étendu par Spring Boot</li>
+                        <li><u><code>@ConditionalOnMissingBean</code> :</u> créer les beans "par défaut" si non-custom</li>
+                        <li><u><code>@ConditionalOnClass</code> :</u> présence de dépendance dans le <i>classpath</i></li>
+                        <li><u><code>@ConditionalOnProperty</code> :</u> configuration (fichier ou autre)</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section data-background-image="http://i.imgur.com/wfjCQuI.gif">
+                <h2>Comment ça marche ? (2/2)</h2>
+                <code class="fragment">SpringFactoriesLoader</code>
+            </section>
+            <section>
+                <h3><code>SpringFactoriesLoader</code></h3>
+                <div class="fragment">
+                    <q>Situation</q>
+                    <p>
+                        Classe <code>MyConfig</code> qui fournie une (bon vieux) <code>Properties</code>
+                    <pre><code class="java">Properties properties = new MyConfig().getProperties();
 String value = properties.getProperty("key");</code></pre>
-								</p>
-							</div>
-							<div class="fragment">
-								<q>Problème/Conséquence</q>
-								<p>
-									Configuration manuelle : absence du <code>PropertySource</code> de Spring<br>
-									<strike><code>@Value</code></strike> <strike>auto-configuration</strike>
-								</p>
-							</div>
-						</ul>
-					</section>
-					<section>
-						<h3><code>SpringFactoriesLoader</code></h3>
-						<p>Solution : <code>EnvironmentPostProcessor</code></p>
-						<ul>
-							<li class="fragment">
-								<i>Implémentation</i>
-								<pre><code class="java">public class MyConfigEnvironmentLoader implements EnvironmentPostProcessor {
+                    </p>
+                </div>
+                <div class="fragment">
+                    <q>Problème/Conséquence</q>
+                    <p>
+                        Configuration manuelle : absence du <code>PropertySource</code> de Spring<br>
+                        <strike><code>@Value</code></strike> <strike>auto-configuration</strike>
+                    </p>
+                </div>
+                </ul>
+            </section>
+            <section>
+                <h3><code>SpringFactoriesLoader</code></h3>
+                <p>Solution : <code>EnvironmentPostProcessor</code></p>
+                <ul>
+                    <li class="fragment">
+                        <i>Implémentation</i>
+                        <pre><code class="java">public class MyConfigEnvironmentLoader implements EnvironmentPostProcessor {
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         Properties properties = new MyConfig().getProperties();
@@ -510,48 +522,48 @@ String value = properties.getProperty("key");</code></pre>
         environment.getPropertySources().addLast(propertySource);
     }
 }</code></pre>
-							<li class="fragment">
-								Référencement : <code>/META-INF/spring.factories</code>
-								<pre><code class="text">org.springframework.boot.env.EnvironmentPostProcessor = \
+                    <li class="fragment">
+                        Référencement : <code>/META-INF/spring.factories</code>
+                        <pre><code class="text">org.springframework.boot.env.EnvironmentPostProcessor = \
                 fr.pinguet62.MyConfigPropertiesEnvironmentLoader</code></pre>
-							</li>
-						</ul>
-						<aside class="notes">
-							<ul>
-								<li><u><code>EnvironmentPostProcessor</code> :</u> phase d'initialisation de Spring</li>
-								<li><u><code>/META-INF/spring.factories</code></u> : classpath scanné par Spring</li>
-								<li><u>Référencement</u> : pas scanné, car durant l'initialisation de Spring</li>
-							</ul>
-						</aside>
-					</section>
-					<section>
-						<h3><code>SpringFactoriesLoader</code></h3>
-						<ul>
-							<li>
-								<u>Cycle de vie :</u><br>
-								<ul>
-									<li><code>PropertySourceLoader</code></li>
-									<li><code>SpringApplicationRunListener</code></li>
-									<li><code>ApplicationContextInitializer</code></li>
-									<li><code>ApplicationListener</code></li>
-									<li>...</li>
-								</ul>
-							</li>
-							<li>
-								<u>Référencement :</u> classpath :<br>
-								<code>/META-INF/spring.factories</code>
-							</li>	
-						</ul>
-						<aside class="notes">
-							<ul>
-								<li>Ensemble d'interfaces prédéfinies</li>
-								<li>Phase d'initialisation de Spring</li>
-							</ul>
-						</aside>
-					</section>
-					<section>
-						<h3>Spring Boot</h3>
-						<pre><code class="text"># PropertySource Loaders
+                    </li>
+                </ul>
+                <aside class="notes">
+                    <ul>
+                        <li><u><code>EnvironmentPostProcessor</code> :</u> phase d'initialisation de Spring</li>
+                        <li><u><code>/META-INF/spring.factories</code></u> : classpath scanné par Spring</li>
+                        <li><u>Référencement</u> : pas scanné, car durant l'initialisation de Spring</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3><code>SpringFactoriesLoader</code></h3>
+                <ul>
+                    <li>
+                        <u>Cycle de vie :</u><br>
+                        <ul>
+                            <li><code>PropertySourceLoader</code></li>
+                            <li><code>SpringApplicationRunListener</code></li>
+                            <li><code>ApplicationContextInitializer</code></li>
+                            <li><code>ApplicationListener</code></li>
+                            <li>...</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <u>Référencement :</u> classpath :<br>
+                        <code>/META-INF/spring.factories</code>
+                    </li>
+                </ul>
+                <aside class="notes">
+                    <ul>
+                        <li>Ensemble d'interfaces prédéfinies</li>
+                        <li>Phase d'initialisation de Spring</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>Spring Boot</h3>
+                <pre><code class="text"># PropertySource Loaders
 org.springframework.boot.env.PropertySourceLoader=\
 	org.springframework.boot.env.PropertiesPropertySourceLoader,\
 	org.springframework.boot.env.YamlPropertySourceLoader
@@ -573,89 +585,117 @@ org.springframework.context.ApplicationListener=\
 	org.springframework.boot.liquibase.LiquibaseServiceLocatorApplicationListener,\
 	org.springframework.boot.logging.ClasspathLoggingApplicationListener,\
 	org.springframework.boot.logging.LoggingApplicationListener</code></pre>
-					</section>
-				</section>
-				<section>
-					<section data-background-image="https://media.giphy.com/media/26hitEYGDjIh8HjOg/giphy.gif">
-						<h2>Attention !</h2>
-					</section>
-					<section>
-						Spring Boot n'est pas...
-						<ul>
-							<li>(que) un serveur web <i>embarqué</i> (Tomcat)</li>
-							<li>un framework</li>
-						</ul>
-						<aside class="notes">
-							<ul>
-								<li><u>serveur web <i>embarqué</i> :</u> exemple le plus courant</li>
-								<li><u>framework :</u> surcouche du <code>code</code> + de chacun des modules supportés</li>
-							</ul>
-						</aside>
-					</section>
-				</section>
-				<section>
-					<section data-background-image="http://68.media.tumblr.com/cbe288bd8738e2f7adda70e30cca4da3/tumblr_nc4qzmXy931rl1jado1_400.gif">
-						<h2>Conclusion</h2>
-					</section>
-					<section>
-						<q>Arrêtez de configurez !!!</q>
-						<ul>
-							<li>Ma configuration est-elle stable/évolutive ?</li>
-							<li>Spring Boot : configure "tout" pour vous</li>
-							<li>Existe-il déjà une configuration <i>toute prête</i> ?</li>
-						</ul>
-						<aside class="notes">
-							<ul>
-								<li><u>Ma configuration :</u> complexité / découpage</li>
-								<li><u>"tout" :</u> stack commune</li>
-								<li><u>Existe-il déjà ?</u> bibliothèque connues implémentent leur auto-configuration si pas supporté par Spring (MyBatis)</li>
-							</ul>
-						</aside>
-					</section>
-				</section>
-				<section data-background-image="https://media.giphy.com/media/l2JhtthoG5ORJJQ5O/giphy.gif">
-					<h2>Question(s) ?</h2>
-				</section>
-				<section id="config">
-					<h2>Config</h2>
-					<ul>
-						<li>
-							Transition :
-							<a href="?transition=none#/config">None</a> -
-							<a href="?transition=fade#/config">Fade</a> -
-							<a href="?transition=slide#/config">Slide</a> -
-							<a href="?transition=convex#/config">Convex</a> -
-							<a href="?transition=concave#/config">Concave</a> -
-							<a href="?transition=zoom#/config">Zoom</a>
-						</li>
-						<li>
-							Thème :
-							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/black.css'); return false;">Black (default)</a> -
-							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/white.css'); return false;">White</a> -
-							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/league.css'); return false;">League</a> -
-							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/sky.css'); return false;">Sky</a> -
-							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/beige.css'); return false;">Beige</a> -
-							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/simple.css'); return false;">Simple</a> -
-							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/serif.css'); return false;">Serif</a> -
-							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/blood.css'); return false;">Blood</a> -
-							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/night.css'); return false;">Night</a> -
-							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/moon.css'); return false;">Moon</a> -
-							<a href="#" onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/solarized.css'); return false;">Solarized</a>
-						</li>
-					</ul>
-				</section>
-			</div>
-		</div>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/js/head.min.js"></script>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/js/reveal.js"></script>
-		<script>
-			Reveal.initialize({
-				transition: 'convex',
-				dependencies: [
-					{ src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: (/*workaround for <iframe> & local file*/ window.location.protocol === 'file:' ? 'plugin/notes/notes.js' : 'https://rawgit.com/hakimel/reveal.js/master/plugin/notes/notes.js'), async: true }
-				]
-			});
-		</script>
-	</body>
+            </section>
+        </section>
+        <section>
+            <section data-background-image="https://media.giphy.com/media/26hitEYGDjIh8HjOg/giphy.gif">
+                <h2>Attention !</h2>
+            </section>
+            <section>
+                Spring Boot n'est pas...
+                <ul>
+                    <li>(que) un serveur web <i>embarqué</i> (Tomcat)</li>
+                    <li>un framework</li>
+                </ul>
+                <aside class="notes">
+                    <ul>
+                        <li><u>serveur web <i>embarqué</i> :</u> exemple le plus courant</li>
+                        <li><u>framework :</u> surcouche du <code>code</code> + de chacun des modules supportés</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section data-background-image="http://68.media.tumblr.com/cbe288bd8738e2f7adda70e30cca4da3/tumblr_nc4qzmXy931rl1jado1_400.gif">
+                <h2>Conclusion</h2>
+            </section>
+            <section>
+                <q>Arrêtez de configurez !!!</q>
+                <ul>
+                    <li>Ma configuration est-elle stable/évolutive ?</li>
+                    <li>Spring Boot : configure "tout" pour vous</li>
+                    <li>Existe-il déjà une configuration <i>toute prête</i> ?</li>
+                </ul>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Ma configuration :</u> complexité / découpage</li>
+                        <li><u>"tout" :</u> stack commune</li>
+                        <li><u>Existe-il déjà ?</u> bibliothèque connues implémentent leur auto-configuration si pas supporté par Spring (MyBatis)</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section data-background-image="https://media.giphy.com/media/l2JhtthoG5ORJJQ5O/giphy.gif">
+            <h2>Question(s) ?</h2>
+        </section>
+        <section id="config">
+            <h2>Config</h2>
+            <ul>
+                <li>
+                    Transition :
+                    <a href="?transition=none#/config">None</a> -
+                    <a href="?transition=fade#/config">Fade</a> -
+                    <a href="?transition=slide#/config">Slide</a> -
+                    <a href="?transition=convex#/config">Convex</a> -
+                    <a href="?transition=concave#/config">Concave</a> -
+                    <a href="?transition=zoom#/config">Zoom</a>
+                </li>
+                <li>
+                    Thème :
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/black.css'); return false;">Black
+                        (default)</a> -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/white.css'); return false;">White</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/league.css'); return false;">League</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/sky.css'); return false;">Sky</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/beige.css'); return false;">Beige</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/simple.css'); return false;">Simple</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/serif.css'); return false;">Serif</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/blood.css'); return false;">Blood</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/night.css'); return false;">Night</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/moon.css'); return false;">Moon</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/solarized.css'); return false;">Solarized</a>
+                </li>
+            </ul>
+        </section>
+    </div>
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/js/head.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/js/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    transition: 'convex',
+    dependencies: [
+      {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/highlight/highlight.js',
+        async: true,
+        callback: function () { hljs.initHighlightingOnLoad() }
+      },
+      {
+        src: (/*workaround for <iframe> & local file*/ window.location.protocol === 'file:' ? 'plugin/notes/notes.js' : 'https://rawgit.com/hakimel/reveal.js/master/plugin/notes/notes.js'),
+        async: true
+      }
+    ]
+  })
+</script>
+</body>
 </html>
