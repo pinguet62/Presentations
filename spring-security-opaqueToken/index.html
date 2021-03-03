@@ -1,0 +1,117 @@
+<html>
+<head>
+    <title>Spring Boot</title>
+    <link rel="icon" type="image/svg+xml" href="https://projects.spring.io/spring-boot/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.min.css">
+    <link id="theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/highlight/zenburn.min.css">
+    <style>
+        /* Override */
+        .reveal pre {
+            width: 100%;
+        }
+
+        .reveal pre code {
+            max-height: none;
+        }
+
+        .reveal small {
+            vertical-align: middle;
+        }
+
+        /* Custom */
+        .img-native {
+            border: none !important;
+            background: none !important;
+            box-shadow: none !important;
+            margin: 0 !important;
+        }
+    </style>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h1>Spring Boot</h1>
+            <img data-src="https://spring.io/images/spring-logo-9146a4d3298760c2e7e49595184e1975.svg" height="50%">
+            <footer>
+                <a href="https://github.com/pinguet62/Presentations" style="display: inline-block; vertical-align: middle;">
+                    <img src="https://github.githubassets.com/images/modules/logos_page/Octocat.png" height="50" class="img-native"/>
+                </a>
+                <a style="font-size: medium; display: inline-block; vertical-align: middle;" href="https://revealjs.com">Reveal.js</a>
+            </footer>
+        </section>
+        <section data-background-image="https://media.giphy.com/media/l2JhtthoG5ORJJQ5O/giphy.gif">
+            <h2>Question(s) ?</h2>
+        </section>
+        <section id="config">
+            <h2>Config</h2>
+            <ul>
+                <li>
+                    Transition :
+                    <a href="?transition=concave#/config">Concave</a> -
+                    <a href="?transition=convex#/config">Convex</a> -
+                    <a href="?transition=fade#/config">Fade</a> -
+                    <a href="?transition=none#/config">None (default)</a> -
+                    <a href="?transition=slide#/config">Slide</a> -
+                    <a href="?transition=zoom#/config">Zoom</a>
+                </li>
+                <li>
+                    Thème :
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/beige.min.css'); return false;">Beige</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/black.min.css'); return false;">Black
+                        (default)</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/blood.min.css'); return false;">Blood</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/league.min.css'); return false;">League</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/moon.min.css'); return false;">Moon</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/night.min.css'); return false;">Night</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/serif.min.css'); return false;">Serif</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/simple.min.css'); return false;">Simple</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/sky.min.css'); return false;">Sky</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/solarized.min.css'); return false;">Solarized</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/white.min.css'); return false;">White</a>
+                </li>
+            </ul>
+        </section>
+    </div>
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.min.js"></script>
+<script>
+  Reveal.initialize({
+    transition: 'none',
+    dependencies: [
+      {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/highlight/highlight.min.js',
+        async: true,
+        callback: function () { hljs.initHighlightingOnLoad() }
+      },
+      {
+        src: (/*workaround for <iframe> & local file*/ window.location.protocol === 'file:' ? 'plugin/notes/notes.js' : 'https://rawgit.com/hakimel/reveal.js/4.1.0/plugin/notes/notes.js'),
+        async: true
+      }
+    ]
+  })
+</script>
+</body>
+</html>
