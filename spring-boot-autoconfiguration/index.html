@@ -1,0 +1,382 @@
+<html>
+<head>
+    <title>Spring Boot</title>
+    <link rel="icon" type="image/svg+xml" href="https://projects.spring.io/spring-boot/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/reveal.css">
+    <link id="theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/css/zenburn.css">
+    <style>
+        /* Override */
+        .reveal pre {
+            width: 100%;
+        }
+
+        .reveal pre code {
+            max-height: none;
+        }
+
+        .reveal small {
+            vertical-align: middle;
+        }
+
+        /* Custom */
+        .img-native {
+            border: none !important;
+            background: none !important;
+            box-shadow: none !important;
+            margin: 0 !important;
+        }
+    </style>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h1>Spring Boot Autoconfiguration</h1>
+            <img data-src="https://spring.io/images/spring-initializr-4291cc0115eb104348717b82161a81de.svg" height="100">
+            <footer>
+                <a href="https://github.com/pinguet62/Presentations" style="display: inline-block; vertical-align: middle;">
+                    <img src="https://github.githubassets.com/images/modules/logos_page/Octocat.png" height="50" class="img-native"/>
+                </a>
+                <a href="https://www.apache.org/licenses/LICENSE-2.0" style="display: inline-block; vertical-align: middle;">
+                    <img src="https://www.apache.org/img/asf_logo.png" height="25" class="img-native"/>
+                </a>
+                <a style="font-size: medium; display: inline-block; vertical-align: middle;" href="http://lab.hakim.se/reveal-js">Reveal.js</a>
+            </footer>
+        </section>
+        <section>
+            <h2>Objectifs</h2>
+            <ul>
+                <li>Son histoire ?</li>
+                <li>Problème quand on croit connaitre</li>
+                <li>Comment ça marche ?</li>
+                <li>Pas si simple !</li>
+            </ul>
+        </section>
+        <section>
+            <section data-background-image="https://i.giphy.com/xkmQfH1TB0dLW.gif">
+                <h2>Son histoire</h2>
+                <p>Exemple : connexion à une base de données</p>
+            </section>
+            <section>
+                <h3>[2003] Spring 1.0</h3>
+                <pre class="fragment" style="line-height:110%;"><code class="java" style="width:120%; font-size:90%;">import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class FirstApplication {
+
+    public static void main(String[] args) {
+        ApplicationContext appContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        // ...
+        client.close();
+    }
+}</code></pre>
+            </section>
+            <section>
+                <h3>[2003] Spring 1.0</h3>
+                <pre style="line-height:110%;"><code class="xml" style="width:120%; font-size:90%;">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans ...&gt;
+
+	&lt;bean id=&quot;dataSource&quot; class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;&gt;
+		&lt;property name=&quot;url&quot; value=&quot;...&quot; /&gt;
+	&lt;/bean&gt;
+
+	&lt;bean id=&quot;sessionFactory&quot; class=&quot;org.springframework.orm.hibernate5.LocalSessionFactoryBean&quot;&gt;
+		&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;
+		&lt;property name=&quot;hibernateProperties&quot;&gt;
+			&lt;props&gt;
+				&lt;prop key=&quot;...&quot;&gt;...&lt;/prop&gt;
+			&lt;/props&gt;
+		&lt;/property&gt;
+	&lt;/bean&gt;
+
+	&lt;bean id=&quot;entityManagerFactory&quot; class=&quot;org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean&quot;&gt;
+		&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;
+		&lt;property name=&quot;persistenceUnitName&quot; value=&quot;default&quot; /&gt;
+	&lt;/bean&gt;
+
+	&lt;tx:annotation-driven /&gt;
+	&lt;bean id=&quot;transactionManager&quot; class=&quot;org.springframework.orm.jpa.JpaTransactionManager&quot;&gt;
+		&lt;property name=&quot;entityManagerFactory&quot; ref=&quot;entityManagerFactory&quot; /&gt;
+	&lt;/bean&gt;
+
+&lt;/beans&gt;</code></pre>
+                <aside class="notes">
+                    <ul>
+                        <li>Classes Java avec comportement inconnu</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>[2007] Spring 2.5</h3>
+                <pre class="fragment" style="line-height:90%;"><code class="java" style="width:120%; font-size:90%;">@Configuration
+public class JpaDatabaseConfig {
+
+	@Bean
+	public DataSource dataSource() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setUrl(...);
+		return dataSource;
+	}
+
+	@Bean
+	public SessionFactory sessionFactory() {
+		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+		sessionFactory.setDataSource(dataSource());
+		Properties properties = new Properties();
+		properties.put("...", ...);
+		sessionFactory.setHibernateProperties(properties);
+		return sessionFactory.getObject();
+	}
+
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
+		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+		entityManagerFactoryBean.setDataSource(dataSource());
+		entityManagerFactoryBean.setPersistenceUnitName("default");
+		return entityManagerFactoryBean;
+	}
+
+	@Bean
+	public PlatformTransactionManager transactionManager() {
+		JpaTransactionManager transactionManager = new JpaTransactionManager();
+		transactionManager.setEntityManagerFactory(entityManagerFactory);
+		return transactionManager;
+	}
+
+}</code></pre>
+                <aside class="notes">
+                    <ul>
+                        <li>Type safe : compilation (plutôt qu'à l'exécution)</li>
+                        <li>Algorithmique : boucles/conditions, code Java</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>[2014] - Spring Boot</h3>
+                <pre class="fragment" style="line-height:110%;"><code class="java" style="width:120%; font-size:90%;">import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import static org.springframework.boot.SpringApplication.run;
+
+@SpringBootApplication
+public class ThirdApplication {
+
+    public static void main(String[] args) {
+        run(ThirdApplication.class);
+    }
+}
+</code></pre>
+                <pre class="fragment"><code>spring.datasource.url=...</code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Problème quand on croit connaitre</h2>
+                <p>"Pourquoi mon <code>@Bean</code> n'est pas reconnu ?!"</p>
+            </section>
+            <section>
+                <h3>Cas concrêt</h3>
+                <ol>
+                    <li>
+                        Je crée un module "<code>common</code>" Maven distinct "réutilisable"<br>
+                        Il déclare un <i>bean</i> <code>MySharedService</code>
+                    </li>
+                    <li>Je veux l'utiliser dans mon projet "<code>api</code>"</li>
+                </ol>
+            </section>
+            <section>
+                <h4>Ça ne fonctionne pas</h4>
+                <p class="fragment"><i>Could not autowire. No beans of 'MySharedService' type found.</i></p>
+                <p class="fragment">Solution 1 : j'utilise le même package</p>
+                <p class="fragment">Solution 2 : je fais <code>@Import(MySharedService.class)</code></p>
+            </section>
+        </section>
+        <section>
+            <section data-background-image="https://i.redd.it/udm7v9jvhfby.gif">
+                <h2>Spring Boot : comment ça marche ? (1/3)</h2>
+                <code>@Conditional</code>
+            </section>
+            <section>
+                <h3><code>@Conditional</code></h3>
+                <p class="fragment">Conditionne la déclaration d'un bean</p>
+                <ul class="fragment">
+                    <li>Existants : <code>@ConditionalOnProperty</code>, <code>@ConditionalOnClass</code>, <code>@ConditionalOnMissingBean</code>, ...</li>
+                    <li>Custom : <code>@Conditional</code> + <code>extends SpringBootCondition</code></li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section data-background-image="http://i.imgur.com/wfjCQuI.gif">
+                <h2>Comment ça marche ? (2/3)</h2>
+                <code>SpringFactoriesLoader</code>
+            </section>
+            <section>
+                <h3><code>SpringFactoriesLoader</code></h3>
+                <ol class="fragment">
+                    <li>Scan le <i>classpath</i></li>
+                    <li>Extrait tous les <code>/META-INF/spring.factories</code></li>
+                    <li>Instancie les classes</li>
+                </ol>
+            </section>
+            <section>
+                <h3>Spring Boot</h3>
+                <p>org.springframework.boot:spring-boot</p>
+                <pre><code class="text"># PropertySource Loaders
+org.springframework.boot.env.PropertySourceLoader=\
+	org.springframework.boot.env.PropertiesPropertySourceLoader,\
+	org.springframework.boot.env.YamlPropertySourceLoader
+
+# Run Listeners
+org.springframework.boot.SpringApplicationRunListener=\
+	org.springframework.boot.context.event.EventPublishingRunListener
+
+# Application Context Initializers
+org.springframework.context.ApplicationContextInitializer=\
+	org.springframework.boot.context.ConfigurationWarningsApplicationContextInitializer,\
+	org.springframework.boot.context.ContextIdApplicationContextInitializer,\
+	org.springframework.boot.context.config.DelegatingApplicationContextInitializer,\
+	org.springframework.boot.context.web.ServerPortInfoApplicationContextInitializer
+
+# Application Listeners
+org.springframework.context.ApplicationListener=\
+	org.springframework.boot.context.FileEncodingApplicationListener,\
+	org.springframework.boot.liquibase.LiquibaseServiceLocatorApplicationListener,\
+	org.springframework.boot.logging.ClasspathLoggingApplicationListener,\
+	org.springframework.boot.logging.LoggingApplicationListener</code></pre>
+            </section>
+            <section>
+                <h3><code>SpringFactoriesLoader</code></h3>
+                <p>Cycle de vie</p>
+                <ul>
+                    <li><code>PropertySourceLoader</code></li>
+                    <li><code>SpringApplicationRunListener</code></li>
+                    <li><code>ApplicationContextInitializer</code></li>
+                    <li><code>ApplicationListener</code></li>
+                    <li>...</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section data-background-image="http://i.imgur.com/wfjCQuI.gif">
+                <h2>Comment ça marche ? (3/3)</h2>
+            </section>
+            <section>
+                <h3>Exemple</h3>
+                <p>JPA</p>
+                <pre><code class="text">
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration</code></pre>
+                <pre><code class="java">@AutoConfiguration(after = { HibernateJpaAutoConfiguration.class, TaskExecutionAutoConfiguration.class })
+@ConditionalOnBean(DataSource.class)
+@ConditionalOnClass(JpaRepository.class)
+@ConditionalOnMissingBean({ JpaRepositoryFactoryBean.class, JpaRepositoryConfigExtension.class })
+@ConditionalOnProperty(prefix = "spring.data.jpa.repositories", name = "enabled", havingValue = "true",
+		matchIfMissing = true)
+@Import(JpaRepositoriesImportSelector.class)
+public class JpaRepositoriesAutoConfiguration {
+
+	@Bean
+	@Conditional(BootstrapExecutorCondition.class)
+	public EntityManagerFactoryBuilderCustomizer entityManagerFactoryBootstrapExecutorCustomizer(</code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Attention : pas si simple !</h2>
+            </section>
+            <section>
+                <h3>Ordre</h3>
+                <p>Dépendances entre auto-configurations</p>
+                <p><code>@AutoConfigureBefore</code>/<code>@AutoConfigureAfter</code></p>
+            </section>
+            <section>
+                <h3>Dépendances transitives</h3>
+                <pre><code class="xml"><dependency>
+    <groupId>...</groupId>
+    <artifactId>...</artifactId>
+    <optional>true</optional>
+</dependency></code></pre>
+            </section>
+            <section>
+                <h3>Nomage des modules</h3>
+                <ul>
+                    <li><code>X-spring-boot-autoconfigure</code> : code + pas de dépendances transitives</li>
+                    <li><code>X-spring-boot-starter</code> inclus l'autre + dépendances transitives</li>
+                </ul>
+            </section>
+        </section>
+        <section data-background-image="https://media.giphy.com/media/l2JhtthoG5ORJJQ5O/giphy.gif">
+            <h2>Question(s) ?</h2>
+        </section>
+        <section id="config">
+            <h2>Config</h2>
+            <ul>
+                <li>
+                    Transition :
+                    <a href="?transition=none#/config">None</a> -
+                    <a href="?transition=fade#/config">Fade</a> -
+                    <a href="?transition=slide#/config">Slide</a> -
+                    <a href="?transition=convex#/config">Convex</a> -
+                    <a href="?transition=concave#/config">Concave</a> -
+                    <a href="?transition=zoom#/config">Zoom</a>
+                </li>
+                <li>
+                    Thème :
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/black.css'); return false;">Black
+                        (default)</a> -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/white.css'); return false;">White</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/league.css'); return false;">League</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/sky.css'); return false;">Sky</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/beige.css'); return false;">Beige</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/simple.css'); return false;">Simple</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/serif.css'); return false;">Serif</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/blood.css'); return false;">Blood</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/night.css'); return false;">Night</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/moon.css'); return false;">Moon</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/solarized.css'); return false;">Solarized</a>
+                </li>
+            </ul>
+        </section>
+    </div>
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/js/head.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/js/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    transition: 'convex',
+    dependencies: [
+      {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/highlight/highlight.js',
+        async: true,
+        callback: function () { hljs.initHighlightingOnLoad() }
+      },
+      {
+        src: (/*workaround for <iframe> & local file*/ window.location.protocol === 'file:' ? 'plugin/notes/notes.js' : 'https://rawgit.com/hakimel/reveal.js/master/plugin/notes/notes.js'),
+        async: true
+      }
+    ]
+  })
+</script>
+</body>
+</html>
