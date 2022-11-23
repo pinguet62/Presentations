@@ -1,0 +1,381 @@
+<html>
+<head>
+    <title>Spring Security &amp; Opaque Token</title>
+    <link rel="icon" type="image/svg+xml" href="https://projects.spring.io/spring-boot/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.min.css">
+    <link id="theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/highlight/zenburn.min.css">
+    <style>
+        /* Override */
+        .reveal pre {
+            width: 100%;
+        }
+
+        .reveal pre code {
+            max-height: none;
+        }
+
+        .reveal small {
+            vertical-align: middle;
+        }
+
+        /* Custom */
+        .img-native {
+            border: none !important;
+            background: none !important;
+            box-shadow: none !important;
+            margin: 0 !important;
+        }
+    </style>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h1>Spring Security &amp; Opaque Token</h1>
+            <img data-src="https://spring.io/images/spring-logo-9146a4d3298760c2e7e49595184e1975.svg" height="50%">
+        </section>
+        <section>
+            <section>
+                <h2>Les filtres</h2>
+            </section>
+            <section>
+                <h3>Fonctionnement</h3>
+                <img data-src="img/schema-WebFilter.png">
+                <pre><code class="java">interface WebFilter {
+    Mono&lt;Void&gt; filter(ServerWebExchange exchange, WebFilterChain chain);
+}
+
+class SampleWebFilter implements WebFilter {
+    @Override
+    public Mono&lt;Void&gt; filter(ServerWebExchange exchange, WebFilterChain chain) {
+        return chain.filter(exchange);
+    }
+}</code></pre>
+            </section>
+            <section>
+                <h3>Examples</h3>
+                <img data-src="img/schema-WebFilter - sample.png">
+                <ul>
+                    <li><code>MetricsWebFilter</code> : métriques de success/error, temps, ...</li>
+                    <li><code>WebFilterChainProxy</code> : securité</li>
+                    <li><code>HeadersFilter</code> : custom (sauvegarde des <i>header</i> pour forward au backend)</li>
+                    <li><code>LocaleFilter</code> : header <code>Accept-Language</code></li>
+                    <li><code>CurrentUserFilter</code> : header <code>X-User</code></li>
+                </ul>
+            </section>
+            <section>
+                <h3><code>WebFilterChainProxy</code></h3>
+                <img data-src="img/schema-WebFilter - ServerWebExchangeReactorContextWebFilter.png">
+                <p>
+                    Voir <a
+                        href="https://github.com/spring-projects/spring-security/blob/master/config/src/main/java/org/springframework/security/config/web/server/ServerHttpSecurity.java#L1311"><code>ServerHttpSecurity#build()</code></a>
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Configuration de Spring-Security</h2>
+            </section>
+            <section>
+                <h3>DSL &amp; auto-configuration</h3>
+                <pre><code class="java">@Bean
+SecurityWebFilterChain configure(ServerHttpSecurity http) {
+    return http.oauth2ResourceServer()
+                   .jwt()
+                       //.jwkSetUri(...)
+                       .and()
+                   .and()
+               .build();
+}
+                </code></pre>
+                <pre><code class="yaml">spring.security.oauth2.resourceserver.jwt.jwk-set-uri: ${OAUTH2_URI}/pf/JWKS</code></pre>
+            </section>
+            <section>
+                <h3>Customisation</h3>
+                <p>
+                    Ordre : <i>set &gt; bean &gt; auto-configuration</i><br>
+                <pre><code class="java">protected void configure(ServerHttpSecurity http) {
+    ReactiveAuthenticationManager authenticationManager = getAuthenticationManager();
+    // ...
+}
+
+private ReactiveAuthenticationManager getAuthenticationManager() {
+    if (this.authenticationManager != null) {
+        return this.authenticationManager;
+    }
+    ReactiveJwtDecoder jwtDecoder = getJwtDecoder();
+    // ...
+}
+
+protected ReactiveJwtDecoder getJwtDecoder() {
+    return (this.jwtDecoder != null) ? this.jwtDecoder : getBean(ReactiveJwtDecoder.class);
+}</code></pre>
+                </p>
+                <aside class="notes">
+                    <ul>
+                        <li><u>Attention aux <code>getBean()</code>:</u> certains beans partagés entre configurations</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Configuration du projet</h2>
+            </section>
+            <section>
+                <h3>Login OAuth2</h3>
+                <pre><code class="java">http.oauth2Login();</code></pre>
+                <pre><code class="yaml">spring.security.oauth2.client:
+  provider:
+    adeo:
+      issuer-uri: ${OPENID_URI}
+  registration:
+    adeo:
+      provider: adeo
+      client-id: ${OPENID_CLIENT_ID}
+      client-secret: ${OPENID_CLIENT_SECRET}
+      authorization-grant-type: authorization_code
+      scope: [ openid, groups, profile ]
+      redirect-uri: ${FRONTEND_URL}/api/auth/login/oauth2/code/{registrationId}</code></pre>
+            </section>
+            <section>
+                <h3>Resource Server OAuth2</h3>
+                <p><a href="https://auth0.com/docs/tokens/access-tokens">Opaque token</a></p>
+                <pre><code class="java">http.opaqueToken();</code></pre>
+                <pre><code class="yaml">spring.security.oauth2.resourceserver.opaquetoken:
+  issuer-uri: ${OPENID_URI}/as/introspect.oauth2
+  client-id: ${OPENID_CLIENT_ID}
+  client-secret: ${OPENID_CLIENT_SECRET}</code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Problème : redirection &amp; <code>401</code></h2>
+            </section>
+            <section>
+                <h3>Problème</h3>
+                <p>Défaut de <code>.oauthLogin()</code>: redirection vers <code>/login</code></p>
+                <p>Besoin: error <code>401</code></p>
+            </section>
+            <section>
+                <h3>Configuration</h3>
+                <pre><code class="java">http.exceptionHandling()
+        .authenticationEntryPoint(new HttpStatusServerEntryPoint(UNAUTHORIZED))</code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Besoin: redirection après login</h2>
+                <p>Exemple : <code>/doLogin?redirect_uri=http://example.org</code></p>
+            </section>
+            <section>
+                <h3>Problème</h3>
+                <p>Défaut de <code>oauthLogin()</code>:<br>
+                    quand <code>AccessDeniedException</code>
+                <ol>
+                    <li><code>ServerRequestCache#saveRequest()</code> &amp; redirect to <code>/login</code></li>
+                    <li><code>ServerRequestCache#getRedirectUri()</code> &amp; redirect</li>
+                </ol>
+            </section>
+            <section>
+                <h3>Problème</h3>
+                <p>Mais:
+                <ul>
+                    <li>accès direct à <code>/oauth2/authorization/{registrationId}</code>: pas de <code>AccessDeniedException</code></li>
+                    <li>customisation de <code>authenticationEntryPoint()</code></li>
+                </ul>
+                </p>
+            </section>
+            <section>
+                <h3>Customisation</h3>
+                <p>
+                <ol>
+                    <li>Sauvegarder la requête avant redirection vers OpenID : <code>OAuth2AuthorizationRequestRedirectWebFilter</code></li>
+                    <li>Restaurer la requête après redirection de OpenID : <code>OAuth2LoginAuthenticationWebFilter</code></li>
+                </ol>
+                </p>
+            </section>
+            <section>
+                <h3>Customisation</h3>
+                <h4>OAuth2AuthorizationRequestRedirectWebFilter</h4>
+                <img data-src="img/schema-Login - workflow - before.png">
+                <p>Uniquement si requête de login : <code>authorizationRequestResolver.resolve()</code></p>
+                <p>Adapter/Proxy</p>
+            </section>
+            <section>
+                <h3>Customisation</h3>
+                <h4>OAuth2LoginAuthenticationWebFilter</h4>
+                <img data-src="img/schema-Login - workflow - after.png">
+                <p>Uniquement si succès : <code>onAuthenticationSuccess()</code></p>
+                <p>Adapter/Proxy</p>
+            </section>
+            <section>
+                <h3>Remarque</h3>
+                <p>Pas super customisable</p>
+                <p>Impossible de récupérer les composants pré-configurés
+                    <code>ServerOAuth2AuthorizationRequestResolver</code> &amp; <code>ServerAuthenticationSuccessHandler</code>
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Besoin : token dans <i>cookie</i></h2>
+                <p>Plutôt que <i>bearer</i> en clair côté frontend.</p>
+            </section>
+            <section>
+                <h3>Défaut</h3>
+                <p>OAuth login :
+                <ul>
+                    <li><code>ReactorContextWebFilter</code></li>
+                    <li><code>ServerSecurityContextRepository</code> : <code>WebSessionServerSecurityContextRepository</code></li>
+                </ul>
+                </p>
+                <p>Resource server : header <code>Authorization</code></p>
+            </section>
+            <section>
+                <h3>Sauvegarde du token</h3>
+                <p>Dans <code>OAuth2LoginAuthenticationWebFilter</code> : ne garde que le <code>Principal</code> contenant l'<code>id_token</code>, et oublie l'<code>access_token</code>
+                </p>
+                <p>Customisation : <code>ServerOAuth2AuthorizedClientRepository</code></p>
+                <p><code>.oauth2Login().authorizedClientRepository(...)</code></p>
+            </section>
+            <section>
+                <h3>Récupération du token</h3>
+                <p>Avant les requêtes : <code>ServerAuthenticationConverter</code></p>
+                <p><code>.oauth2ResourceServer().bearerTokenConverter(...)</code></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Resource Server &amp; Opaque Token</h2>
+            </section>
+            <section>
+                <h3>OpenID &amp; tokens</h3>
+                <h4><code>access_token</code></h4>
+                <p>Ne contient pas d'information de l'utilisateur</p>
+                <p>Authorisé par le <code>userinfo_endpoint</code></p>
+            </section>
+            <section>
+                <h3>OpenID &amp; tokens</h3>
+                <p><code>id_token</code>
+                <ul>
+                    <li>Contient les information de base de l'utilisateur</li>
+                    <li>Non authorisé par le <code>userinfo_endpoint</code></li>
+                </ul>
+                </p>
+                <p><code>access_token</code>
+                <ul>
+                    <li>Signature invalide</li>
+                    <li>N'est pas du JWT</li>
+                    <li>Peut avoir un format différent (selon l'implémentation)</li>
+                </ul>
+                </p>
+            </section>
+            <section>
+                <h3>Problème</h3>
+                <p><code>http.oauth2ResourceServer().opaqueToken()</code></p>
+                <p>Ne permet pas la convertion du <code>Authentication</code> ni du <i>user info</i></p>
+            </section>
+            <section>
+                <h3>Customisation</h3>
+                <p><code>http.oauth2ResourceServer().authenticationManagerResolver()</code></p>
+                <p>Composant plus bas-niveau</p>
+                <p><i>user info</i> + <code>Authentication</code> custom</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Cookie VS Session</h2>
+            </section>
+            <section>
+                <h3>Contraintes des cookies</h3>
+                <p>Sérialisation des données : <code>string</code></p>
+                <p>Caractères autorisés</p>
+                <p>Taille limitée : ≈ 5000 caractères</p>
+                <p>Chiffrement : augmente la taille</p>
+            </section>
+            <section>
+                <h3>Usage</h3>
+                <h4>Redirection OpenID</h4>
+                <p>Cookie
+                    <del>impossible</del>
+                    compliqué
+                </p>
+            </section>
+        </section>
+
+        <section data-background-image="https://media.giphy.com/media/l2JhtthoG5ORJJQ5O/giphy.gif">
+            <h2>Question(s) ?</h2>
+        </section>
+        <section id="config">
+            <h2>Config</h2>
+            <ul>
+                <li>
+                    Transition :
+                    <a href="?transition=concave#/config">Concave</a> -
+                    <a href="?transition=convex#/config">Convex</a> -
+                    <a href="?transition=fade#/config">Fade</a> -
+                    <a href="?transition=none#/config">None (default)</a> -
+                    <a href="?transition=slide#/config">Slide</a> -
+                    <a href="?transition=zoom#/config">Zoom</a>
+                </li>
+                <li>
+                    Thème :
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/beige.min.css'); return false;">Beige</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/black.min.css'); return false;">Black
+                        (default)</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/blood.min.css'); return false;">Blood</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/league.min.css'); return false;">League</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/moon.min.css'); return false;">Moon</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/night.min.css'); return false;">Night</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/serif.min.css'); return false;">Serif</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/simple.min.css'); return false;">Simple</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/sky.min.css'); return false;">Sky</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/solarized.min.css'); return false;">Solarized</a>
+                    -
+                    <a href="#"
+                       onclick="document.getElementById('theme').setAttribute('href','https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/white.min.css'); return false;">White</a>
+                </li>
+            </ul>
+        </section>
+    </div>
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.min.js"></script>
+<script>
+  Reveal.initialize({
+    transition: 'none',
+    dependencies: [
+      {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/highlight/highlight.min.js',
+        async: true,
+        callback: function () { hljs.initHighlightingOnLoad() }
+      },
+      {
+        src: (/*workaround for <iframe> & local file*/ window.location.protocol === 'file:' ? 'plugin/notes/notes.js' : 'https://rawgit.com/hakimel/reveal.js/4.1.0/plugin/notes/notes.js'),
+        async: true
+      }
+    ]
+  })
+</script>
+</body>
+</html>
