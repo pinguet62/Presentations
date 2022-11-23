@@ -34,12 +34,6 @@
         <section>
             <h1>Spring Security &amp; Opaque Token</h1>
             <img data-src="https://spring.io/images/spring-logo-9146a4d3298760c2e7e49595184e1975.svg" height="50%">
-            <footer>
-                <a href="https://github.com/pinguet62/Presentations" style="display: inline-block; vertical-align: middle;">
-                    <img src="https://github.githubassets.com/images/modules/logos_page/Octocat.png" height="50" class="img-native"/>
-                </a>
-                <a style="font-size: medium; display: inline-block; vertical-align: middle;" href="https://revealjs.com">Reveal.js</a>
-            </footer>
         </section>
         <section>
             <section>
@@ -47,7 +41,7 @@
             </section>
             <section>
                 <h3>Fonctionnement</h3>
-                <img data-src="C:\Users\10131571\Downloads\schema-WebFilter.png">
+                <img data-src="img/schema-WebFilter.png">
                 <pre><code class="java">interface WebFilter {
     Mono&lt;Void&gt; filter(ServerWebExchange exchange, WebFilterChain chain);
 }
@@ -61,7 +55,7 @@ class SampleWebFilter implements WebFilter {
             </section>
             <section>
                 <h3>Examples</h3>
-                <img data-src="C:\Users\10131571\Downloads\schema-WebFilter - sample.png">
+                <img data-src="img/schema-WebFilter - sample.png">
                 <ul>
                     <li><code>MetricsWebFilter</code> : métriques de success/error, temps, ...</li>
                     <li><code>WebFilterChainProxy</code> : securité</li>
@@ -72,7 +66,7 @@ class SampleWebFilter implements WebFilter {
             </section>
             <section>
                 <h3><code>WebFilterChainProxy</code></h3>
-                <img data-src="C:\Users\10131571\Downloads\schema-WebFilter - ServerWebExchangeReactorContextWebFilter.png">
+                <img data-src="img/schema-WebFilter - ServerWebExchangeReactorContextWebFilter.png">
                 <p>
                     Voir <a
                         href="https://github.com/spring-projects/spring-security/blob/master/config/src/main/java/org/springframework/security/config/web/server/ServerHttpSecurity.java#L1311"><code>ServerHttpSecurity#build()</code></a>
@@ -205,14 +199,14 @@ protected ReactiveJwtDecoder getJwtDecoder() {
             <section>
                 <h3>Customisation</h3>
                 <h4>OAuth2AuthorizationRequestRedirectWebFilter</h4>
-                <img data-src="C:\Users\10131571\Downloads\schema-Login - workflow - before.png">
+                <img data-src="img/schema-Login - workflow - before.png">
                 <p>Uniquement si requête de login : <code>authorizationRequestResolver.resolve()</code></p>
                 <p>Adapter/Proxy</p>
             </section>
             <section>
                 <h3>Customisation</h3>
                 <h4>OAuth2LoginAuthenticationWebFilter</h4>
-                <img data-src="C:\Users\10131571\Downloads\schema-Login - workflow - after.png">
+                <img data-src="img/schema-Login - workflow - after.png">
                 <p>Uniquement si succès : <code>onAuthenticationSuccess()</code></p>
                 <p>Adapter/Proxy</p>
             </section>
